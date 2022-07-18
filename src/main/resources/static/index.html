@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title> Save Client</title>
+</head>
+<body>
+
+<!-- theDate comes from the theModel.addAttribure of DemoController -->
+  <form  action="#" th:action="@{/fit/save}" th:object="${client}" method="POST">
+  
+  <input type="text" th:field="*{firstName}"  placeholder="First name" >
+<input type="text" th:field="*{lastName}"  placeholder="Last name" >
+<input type="text" th:field="*{email}"  placeholder="Email" >
+
+<button type="submit">Save</button>
+
+</form>
+
+
+
+
+
+</body>
+
+
+
+
+
+</html>

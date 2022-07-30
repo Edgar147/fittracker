@@ -5,38 +5,36 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fittracker.fittracker.dao.ClientDAO;
+import com.fittracker.fittracker.dao.DirectionDAO;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
+
 @Service
-@Component("cliSer")
-public class ClientServiceImpl implements Services {
+@Component("dicSer")
+public class DirectionServiceImpl implements Services {
 
 	@Autowired
-	private ClientDAO clientDAO;
+	private DirectionDAO direcDAO;
 	
-	
+	@Override
+	public void saveClient(Client theClient) {
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	@Transactional
-	public void saveClient(Client theClient) {
-		clientDAO.saveClient(theClient);
-	}
-
-
-	@Override
 	public void saveDirection(Direction theDirection) {
-		// TODO Auto-generated method stub
+		direcDAO.saveDirection(theDirection);
 		
 	}
-
 
 	@Override
 	public void saveClub(Club theClub) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 
 }

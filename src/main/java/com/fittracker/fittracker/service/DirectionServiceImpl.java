@@ -36,5 +36,13 @@ public class DirectionServiceImpl implements Services {
 		
 	}
 
+	@Override
+	public Club findById(int theId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 
 }

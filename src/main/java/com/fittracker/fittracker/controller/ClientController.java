@@ -1,12 +1,15 @@
 package com.fittracker.fittracker.controller;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
@@ -16,6 +19,8 @@ import com.fittracker.fittracker.service.Services;
 @Controller
 //@RequestMapping("/fit")
 public class ClientController {
+	
+
 	
 	@Autowired
 	@Qualifier("cliSer")
@@ -57,10 +62,27 @@ public class ClientController {
 	@PostMapping("/save")
 	public String saveClient(@ModelAttribute("client") Client theClient){
 		
-		Club theClub=new Club("dsgdfs","dsg","dsg","dsg");
+//		
+//		theClient.addClub(theClub);
+//		clubSer.saveClub(theClub);
+
 		
-		theClient.addClub(theClub);
-		clubSer.saveClub(theClub);
+		Club te=clubSer.findById(1);
+
+		if (te!=null)
+		{
+			System.out.println(te.getName());
+			System.out.println("ooooooooooooooooooKKKKKK");
+			System.out.println("ooooooooooooooooooKKKKKK");
+		}
+		else {
+			System.out.println(te);
+			System.out.println("fffffffffffff");
+			System.out.println("fffffffffffff");
+
+		}
+		
+		
 
 		cliSer.saveClient(theClient);
 		

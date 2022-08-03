@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -42,6 +41,9 @@ public class Client {
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="club_id")
+	private int clubId;
+	
 	
 
 
@@ -55,18 +57,20 @@ public class Client {
 	}
 	
 	
-	public Client( int id, String firstName, String lastName, String email) {
+	public Client( int id, String firstName, String lastName, String email,int clubId) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.clubId = clubId;
 	}
 
 
-	public Client( String firstName, String lastName, String email) {
+	public Client( String firstName, String lastName, String email,int clubId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.clubId = clubId;
 	}
 
 	
@@ -135,8 +139,19 @@ public class Client {
 		
 		clubs.add(theClub);
 	}
-	
-	
+
+
+	public int getClubId() {
+		return clubId;
+	}
+
+
+	public void setClubId(int clubId) {
+		this.clubId = clubId;
+	}
+
+
+
 	
 	
 	

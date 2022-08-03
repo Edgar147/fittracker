@@ -67,11 +67,12 @@ public class ClientController {
 //		clubSer.saveClub(theClub);
 
 		
-		Club te=clubSer.findById(1);
+//		Club te=clubSer.findById(1);
+		String te=clubSer.findNameById(2);
 
 		if (te!=null)
 		{
-			System.out.println(te.getName());
+			System.out.println(te);
 			System.out.println("ooooooooooooooooooKKKKKK");
 			System.out.println("ooooooooooooooooooKKKKKK");
 		}

@@ -19,6 +19,7 @@ public interface Services {
 	public void saveClub(Club theClub);
 
 	public Club findById(int theId);
+	public String findNameById(int theId);
 
 
 }

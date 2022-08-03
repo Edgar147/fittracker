@@ -45,6 +45,13 @@ public class ClientServiceImpl implements Services {
 	}
 
 
+	@Override
+	public String findNameById(int theId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 

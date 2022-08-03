@@ -1,6 +1,10 @@
 package com.fittracker.fittracker.service;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +21,10 @@ import com.fittracker.fittracker.entity.Direction;
 @Component("clubSer")
 public class ClubServiceImpl implements Services {
 
+	 @Autowired
+	 EntityManager entityManager;
+	
+	
 	@Autowired
 	private ClubDAO clubDAO;
 	
@@ -60,6 +68,19 @@ public class ClubServiceImpl implements Services {
 			throw new RuntimeException("Did not find Club id -"+ theId);
 		}
 		return theClub;
+	}
+
+	@Override
+	public String findNameById(int theId) {
+        
+        
+		Query theQuery =entityManager.createQuery("select name from Club  where id =:clubId");
+		theQuery.setParameter("clubId", theId);
+		List<Club> theClub=theQuery.getResultList();
+        
+        
+        
+		return theClub.toString();
 	}
 
 

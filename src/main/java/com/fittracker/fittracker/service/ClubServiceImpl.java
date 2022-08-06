@@ -83,6 +83,12 @@ public class ClubServiceImpl implements Services {
 		return theClub.toString();
 	}
 
+	@Override
+	public List<Client> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

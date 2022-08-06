@@ -2,21 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title> Save Club</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+<title>Save Club</title>
 </head>
 <body>
 
-<!-- theDate comes from the theModel.addAttribure of DemoController -->
-  <form  th:action="@{/saveclub}" th:object="${club}" method="POST">
-  
+	<!-- theDate comes from the theModel.addAttribure of DemoController -->
+
+  <form  th:action="@{/saveclub}" th:object="${club}" method="POST">	
+	
+	
+		<div class="container py-5 bg-light "   style="margin-top:200px;">
+		
+		<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 32%;">	
+	<h1>Creating a new Club</h1>
+</div>
+
+			<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
   <input type="text" th:field="*{name}"  placeholder="Name" >
+			</div>
+			
+			<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
 <input type="text" th:field="*{address}"  placeholder="Adress" >
+			</div>
+
+			<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
 <input type="text" th:field="*{coord}"  placeholder="Coord" >
+			</div>
+
+			<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
+
 <input type="text" th:field="*{scheldue}"  placeholder="Scheldue" >
+			</div>
 
-<button type="submit">Save</button>
+			<div class="form-outline mb-3"
+				style="margin-left: 45%;">
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
 
-</form>
+		</div>
+
+	</form>
+
+
+
 
 
 
@@ -29,3 +68,10 @@
 
 
 </html>
+
+
+
+
+
+
+

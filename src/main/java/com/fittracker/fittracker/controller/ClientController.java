@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class ClientController {
 	@Qualifier("clubSer")
 	private Services clubSer;
 	
+	//private List<Client> theClients;
 
 	
 	
@@ -109,4 +111,28 @@ public class ClientController {
 		return "redirect:/registration/club";
 	}
 
+	
+	@GetMapping("/list-clients")
+	public String listEmployees(Model theModel) {
+		
+		
+		List<Client> theClients=cliSer.findAll();
+
+		
+		
+		
+		//add to the spring model
+		theModel.addAttribute("clients",theClients);
+		
+		return "list-clients";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

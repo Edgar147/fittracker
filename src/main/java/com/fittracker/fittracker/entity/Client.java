@@ -46,6 +46,8 @@ public class Client {
 	
 	
 
+	@Column(name = "password")
+	private String password;
 
 	
 	
@@ -74,6 +76,16 @@ public class Client {
 	}
 
 	
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	public int getId() {
 		return id;

@@ -128,10 +128,20 @@ public class ClientController {
 	}
 	
 	
+	@GetMapping("/myLogin")
+	public String showMyLoginPage() {
+		
+		return "login-page";
+		
+	}
 	
 	
-	
-	
+	@GetMapping("/home")
+	public String showMyHome() {
+		
+		return "home";
+		
+	}
 	
 	
 	

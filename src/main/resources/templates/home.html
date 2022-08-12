@@ -15,6 +15,16 @@
 <h1>Hello this is your home page when you are logged in</h1>
 <a href="/">Admin page</a>
 
+
+
+
+	<!-- Add a logout button -->
+	<form th:action="@{/logout}" 
+			   method="POST">
+	
+		<input type="submit" value="Logout" />
+	
+	</form>	
 </body>
 
 

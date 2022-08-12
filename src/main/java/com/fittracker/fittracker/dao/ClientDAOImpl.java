@@ -3,6 +3,7 @@ package com.fittracker.fittracker.dao;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,6 +42,26 @@ public class ClientDAOImpl implements ClientDAO {
 		currentSession.saveOrUpdate(theClient); //if id is 0->save, else->update
 
 		
+	}
+
+
+
+
+	@Override
+	public Client findByClientName(String clientName) {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// now retrieve/read from database using username
+		Query<Client> theQuery = currentSession.createQuery("from Client where firstName=:uName", Client.class);
+		theQuery.setParameter("uName", clientName);
+		Client theClient = null;
+		try {
+			theClient = theQuery.getSingleResult();
+		} catch (Exception e) {
+			theClient = null;
+		}
+
+		return theClient;
 	}
 
 }

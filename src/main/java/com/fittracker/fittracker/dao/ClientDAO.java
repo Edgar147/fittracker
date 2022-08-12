@@ -6,4 +6,6 @@ public interface ClientDAO {
 	
 	public void saveClient(Client theClient);
 	
+    public Client findByClientName(String userName);
+
 }

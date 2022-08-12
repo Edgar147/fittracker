@@ -39,6 +39,13 @@ public class ClientController {
 	//private List<Client> theClients;
 
 	
+	@GetMapping("/")
+	public String FirstPage() {
+
+		return "login-page";
+	}
+	
+	
 	
 	@GetMapping("/registration/client")
 	public String reg(@ModelAttribute("client") Client theClient) {

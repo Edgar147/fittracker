@@ -40,6 +40,23 @@
 				<input type="text" th:field="*{email}" placeholder="Email">
 			</div>
 			
+			<!-- 
+			<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
+				<input type="text" th:field="*{role}" placeholder="Role">
+			</div>-->
+			
+				<div class="form-outline mb-3"
+				style="display: inline-block; margin-left: 40%;">
+			<INPUT type= "radio" th:field="*{role}" name="role" value="ROLE_MANAGER"> MANAGER
+<INPUT type= "radio" name="role" th:field="*{role}" value="ROLE_ADMIN"> ADMIN
+<INPUT type= "radio" name="role" th:field="*{role}" value="ROLE_CLIENT"> CLIENT
+			
+			</div>
+			
+			
+			
+			
 			<div class="form-outline mb-3"
 				style="display: inline-block; margin-left: 40%;">
 							<input type="password" th:field="*{password}" placeholder="password (*)"  />

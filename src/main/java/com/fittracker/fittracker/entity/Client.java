@@ -1,10 +1,13 @@
 package com.fittracker.fittracker.entity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +31,18 @@ public class Client {
 	
 	
 	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "clients_roles", 
+	joinColumns = @JoinColumn(name = "client_id"), 
+	inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Collection<Role> roles;
+	
+	
+	
+	
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -48,12 +63,48 @@ public class Client {
 
 	@Column(name = "password")
 	private String password;
+	
+	
+	@Column(name = "role")
+	private String role;
 
 	
 	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	public Client(List<Club> clubs, Collection<Role> roles, int id, String firstName, String lastName, String email,
+			int clubId, String password, String role) {
+		super();
+		this.clubs = clubs;
+		this.roles = roles;
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.clubId = clubId;
+		this.password = password;
+		this.role = role;
+	}
+
+
 	public Client() {
 		
 	}
@@ -76,6 +127,29 @@ public class Client {
 	}
 
 	
+
+	public Client(List<Club> clubs, Collection<Role> roles, int id, String firstName, String lastName, String email,
+			int clubId, String password) {
+		this.clubs = clubs;
+		this.roles = roles;
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.clubId = clubId;
+		this.password = password;
+	}
+
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
 
 	public String getPassword() {
 		return password;

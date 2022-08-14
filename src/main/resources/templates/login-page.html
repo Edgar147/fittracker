@@ -12,7 +12,7 @@
 <body
 	style="background-image: url('images/background-index2.png'); background-size: cover">
 
-	<div class="container py-5 bg-light " style="margin-top: 200px;   width: 30%;">
+	<div class="container py-5 bg-light " style="margin-top: 200px;   width: 30%;  background-image: url('images/login_background.jpg');background-size: cover">
 
 
 
@@ -27,7 +27,7 @@
 
 					<div th:if="${param.error}">
 
-						<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+						<div class="alert alert-danger" style="display: inline-block; margin-left: 28%;">
 							Invalid username and password.</div>
 
 					</div>
@@ -36,7 +36,7 @@
 
 					<div th:if="${param.logout}">
 
-						<div class="alert alert-success col-xs-offset-1 col-xs-10">
+						<div class="alert alert-success" style="display: inline-block; margin-left: 30%;">
 							You have been logged out.</div>
 
 					</div>
@@ -59,7 +59,7 @@
 			<!-- Login/Submit Button -->
 		<div class="form-outline mb-3"
 				style="margin-left: 45%;">
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="submit" class="btn btn-primary">Login</button>
 			</div>
 
 		</form>

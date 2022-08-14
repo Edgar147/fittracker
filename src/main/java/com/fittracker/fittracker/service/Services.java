@@ -3,6 +3,7 @@ package com.fittracker.fittracker.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.fittracker.fittracker.entity.Client;
@@ -21,11 +22,12 @@ public interface Services {
 	public void saveClub(Club theClub);
 
 	public Club findById(int theId);
+	public Client findClientById(int theId);
 	
 	public String findNameById(int theId);
 	
 	public List<Client> findAll();
 
-
+	public UserDetails loadUserByUsername(String userName);
 
 }

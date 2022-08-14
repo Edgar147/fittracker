@@ -6,12 +6,15 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.fittracker.fittracker.dao.ClientDAO;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
@@ -36,6 +39,8 @@ public class ClientController {
 	@Qualifier("clubSer")
 	private Services clubSer;
 	
+	@Autowired
+	private ClientDAO cd;
 	//private List<Client> theClients;
 
 	
@@ -45,6 +50,12 @@ public class ClientController {
 		return "login-page";
 	}
 	
+	
+	@GetMapping("/administration")
+	public String AdminPage() {
+
+		return "index";
+	}
 	
 	
 	@GetMapping("/registration/client")
@@ -144,8 +155,21 @@ public class ClientController {
 	
 	
 	@GetMapping("/home")
-	public String showMyHome() {
-		
+	public String showMyHome(Model model,@ModelAttribute("client") Client theClient) {
+	    Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String aaa = loggedInUser.getName(); 
+	    
+
+	     Client user = cd.findByClientName("tufta");
+
+	    
+		String role=user.getRole();
+		int clientId=user.getId(); 
+		System.out.println("ddddddddddddddd");
+		System.out.println(role);
+		System.out.println("ddddddddddddddd");
+	    model.addAttribute("role", role);
+	    model.addAttribute("clientId", clientId);
 		return "home";
 		
 	}

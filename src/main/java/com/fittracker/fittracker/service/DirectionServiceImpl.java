@@ -15,29 +15,11 @@ import com.fittracker.fittracker.entity.Direction;
 
 @Service
 @Component("dicSer")
-public class DirectionServiceImpl implements Services {
+public class DirectionServiceImpl implements Services<Direction> {
 
 	@Autowired
 	private DirectionDAO direcDAO;
 	
-	@Override
-	public void saveClient(Client theClient) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Transactional
-	public void saveDirection(Direction theDirection) {
-		direcDAO.saveDirection(theDirection);
-		
-	}
-
-	@Override
-	public void saveClub(Club theClub) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public Club findById(int theId) {
@@ -67,6 +49,19 @@ public class DirectionServiceImpl implements Services {
 	public UserDetails loadUserByUsername(String userName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Client findByClientName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void save(Direction theDirection) {
+		direcDAO.saveDirection(theDirection);
+		
 	}
 
 

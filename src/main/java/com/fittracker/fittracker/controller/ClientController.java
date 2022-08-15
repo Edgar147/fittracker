@@ -29,16 +29,16 @@ public class ClientController {
 	
 	@Autowired
 	@Qualifier("cliSer")
-	private Services cliSer;
+	private Services<Client> cliSer;
 	
 	@Autowired
 	@Qualifier("dicSer")
-	private Services dicSer;
+	private Services<Direction>  dicSer;
 	
 	
 	@Autowired
 	@Qualifier("clubSer")
-	private Services clubSer;
+	private Services<Club> clubSer;
 	
 	@Autowired
 	private ClientDAO cd;
@@ -110,7 +110,7 @@ public class ClientController {
 		c.add(theClub);
 		theClient.setClubs(c);
 
-		cliSer.saveClient(theClient);
+		cliSer.save(theClient);
 		
 		
 		return "redirect:/registration/client";
@@ -121,7 +121,7 @@ public class ClientController {
 	@PostMapping("/savedirec")
 	public String saveDirection(@ModelAttribute("direction") Direction theDirection){
 		
-		dicSer.saveDirection(theDirection);
+		dicSer.save(theDirection);
 		
 		return "redirect:/registration/direction";
 	}
@@ -129,7 +129,7 @@ public class ClientController {
 	@PostMapping("/saveclub")
 	public String saveClub(@ModelAttribute("club") Club theClub){
 		
-		clubSer.saveClub(theClub);
+		clubSer.save(theClub);
 		
 		return "redirect:/registration/club";
 	}

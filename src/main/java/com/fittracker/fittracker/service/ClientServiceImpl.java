@@ -24,7 +24,7 @@ import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.entity.Role;
 @Service
 @Component("cliSer")
-public class ClientServiceImpl implements Services {
+public class ClientServiceImpl implements Services<Client> {
 
 	@Autowired
 	private ClientDAO clientDAO;
@@ -48,44 +48,9 @@ public class ClientServiceImpl implements Services {
 	
 	
 	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public ClientServiceImpl(ClientRepository cl) {
 		this.cl = cl;
 	}
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-	@Override
-	@Transactional
-	public void saveClient(Client theClient) {
-		theClient.setPassword(passwordEncoder.encode(theClient.getPassword()));
-		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-		System.out.println(theClient.getRole());
-		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-
-//		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
-		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName(theClient.getRole())));
-		clientDAO.saveClient(theClient);
-	}
-
-
-	@Override
-	public void saveDirection(Direction theDirection) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void saveClub(Club theClub) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public Club findById(int theId) {
@@ -114,6 +79,13 @@ public class ClientServiceImpl implements Services {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
+	@Override
+	public Client findByClientName(String userName) {
+		return clientDao.findByClientName(userName);
+	}
 
 
 
@@ -133,5 +105,17 @@ public class ClientServiceImpl implements Services {
 	}
 
 
+	@Override
+	@Transactional
+	public void save(Client theClient) {
+		theClient.setPassword(passwordEncoder.encode(theClient.getPassword()));
+		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+		System.out.println(theClient.getRole());
+		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+
+//		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
+		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName(theClient.getRole())));
+		clientDAO.saveClient(theClient);		
+	}
 
 }

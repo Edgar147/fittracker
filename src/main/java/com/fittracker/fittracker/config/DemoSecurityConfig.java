@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.fittracker.fittracker.service.ClientService;
 import com.fittracker.fittracker.service.Services;
 
 @Configuration
@@ -23,8 +22,12 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 	// add a reference to our security data source
 	
 	// add a reference to our user service
-    @Autowired
-    private ClientService userService;
+
+    
+    
+	@Autowired
+	@Qualifier("cliSer")
+	private Services userService;
 	
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;

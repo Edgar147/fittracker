@@ -20,7 +20,7 @@ import com.fittracker.fittracker.entity.Direction;
 
 @Service
 @Component("clubSer")
-public class ClubServiceImpl implements Services {
+public class ClubServiceImpl implements Services<Club> {
 
 	 @Autowired
 	 EntityManager entityManager;
@@ -33,26 +33,6 @@ public class ClubServiceImpl implements Services {
 	public ClubServiceImpl( ClubRepository theClubRepository) {
 		clubRepository=theClubRepository;
 	}
-	
-	@Override
-	public void saveClient(Client theClient) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void saveDirection(Direction theDirection) {
-
-		
-	}
-	@Override
-	@Transactional
-	public void saveClub(Club theClub) {
-		clubDAO.saveClub(theClub);
-		
-	}
-
 	
 
 	@Override
@@ -100,6 +80,19 @@ public class ClubServiceImpl implements Services {
 	public UserDetails loadUserByUsername(String userName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Client findByClientName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void save(Club theClub) {
+		clubDAO.saveClub(theClub);
+		
 	}
 
 

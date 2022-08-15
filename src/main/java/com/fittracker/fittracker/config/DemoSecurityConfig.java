@@ -38,6 +38,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 			.antMatchers("/registration/**").hasAnyRole("MANAGER", "ADMIN")
+			.antMatchers("/administration/**").hasAnyRole("MANAGER", "ADMIN")
 			.antMatchers("/home").permitAll()
 			.and()
 			.formLogin()

@@ -7,7 +7,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<title>Hello, choose please</title>
+<title>Homepage</title>
 </head>
 <body style="background-image: url('images/background-index2.png'); background-size: cover">
 
@@ -18,11 +18,16 @@
 <span th:text ="${#authentication.authorities}"></span> -->
 <h1>Hello <span th:text="${role}"></span></h1>
 <h1>Hello <span th:text="${clientId}"></span></h1>
+<h1>Hello <span th:text="${theClub}"></span></h1>
 
 <h1></h1>
+<div sec:authorize="hasRole('ROLE_ADM')">
+  This content is only shown to administrators.
+
 <a href="/administration">Admin page</a>
 
-
+</div>
+<a href="/administration">Admin page</a>
 
 
 

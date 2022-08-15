@@ -1,5 +1,6 @@
 package com.fittracker.fittracker.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -103,7 +104,11 @@ public class ClientController {
 
 		}
 		
-		
+		int clid=theClient.getClubId();
+		Club theClub=clubSer.findById(clid);
+		ArrayList c = new ArrayList<>();
+		c.add(theClub);
+		theClient.setClubs(c);
 
 		cliSer.saveClient(theClient);
 		
@@ -165,11 +170,16 @@ public class ClientController {
 	    
 		String role=user.getRole();
 		int clientId=user.getId(); 
+		int clubId= user.getClubId();
+		
+		Club club= clubSer.findById(clubId);
+		
 		System.out.println("ddddddddddddddd");
-		System.out.println(role);
+		System.out.println(club.getName());
 		System.out.println("ddddddddddddddd");
 	    model.addAttribute("role", role);
 	    model.addAttribute("clientId", clientId);
+	    model.addAttribute("theClub", club.getName());
 		return "home";
 		
 	}

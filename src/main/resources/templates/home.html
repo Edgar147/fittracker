@@ -11,6 +11,16 @@
 </head>
 <body style="background-image: url('images/background-index2.png'); background-size: cover">
 
+<div style=" display:inline; float:right; margin-top:-50px;">
+	<!-- Add a logout button -->
+	<form th:action="@{/logout}" 
+			   method="POST">
+	
+		<input class="btn btn-warning"  type="submit" value="Logout" />
+	
+	</form>	
+	</div>
+
 	<div class="container py-5 bg-light " style="margin-top: 50px;   width: 80%;" >
 
 <!-- <h1>Hello <span th:text="${#authentication.getPrincipal().getUsername()}"></span></h1>
@@ -21,7 +31,7 @@
 <h1>Hello <span th:text="${theClub}"></span></h1>
 
 <h1></h1>
-<div sec:authorize="hasRole('ROLE_ADM')">
+<div sec:authorize="hasRole('ROLE_MANAGER')">
   This content is only shown to administrators.
 
 <a href="/administration">Admin page</a>
@@ -29,7 +39,7 @@
 </div>
 <a href="/administration">Admin page</a>
 
-
+<a href="/addClub">Add club</a>
 
 
 <!-- <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -38,13 +48,6 @@
 </div>
 
 
-	<!-- Add a logout button -->
-	<form th:action="@{/logout}" 
-			   method="POST">
-	
-		<input type="submit" value="Logout" />
-	
-	</form>	
 </body>
 
 

@@ -1,8 +1,11 @@
 package com.fittracker.fittracker.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,6 +44,24 @@ public class DirectionDAOImpl implements DirectionDAO {
 		Session  currentSession= entityManager.unwrap(Session.class);
 		currentSession.saveOrUpdate(theDirection); //if id is 0->save, else->update
 
+		
+	}
+
+
+
+
+	@Override
+	public List<Direction> findAll() {
+		Session currentSession = entityManager.unwrap(Session.class);
+		List<Direction> theDirection;
+		// now retrieve/read from database using username
+		Query<Direction> theQuery = currentSession.createQuery("from Direction", Direction.class);
+	
+		List<Direction> directors= theQuery.getResultList();
+
+		return directors;
+		
+		
 		
 	}
 

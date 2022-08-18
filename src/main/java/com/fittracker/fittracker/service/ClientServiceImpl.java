@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fittracker.fittracker.dao.ClientDAO;
-import com.fittracker.fittracker.dao.ClientRepository;
 import com.fittracker.fittracker.dao.RoleDAO;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.entity.Role;
+import com.fittracker.fittracker.repository.ClientRepository;
 @Service
 @Component("cliSer")
 public class ClientServiceImpl implements Services<Client> {
@@ -33,7 +33,7 @@ public class ClientServiceImpl implements Services<Client> {
 	@Autowired
 	private RoleDAO roleDAO;
 	
-	private ClientRepository cl;
+	private ClientRepository clientRepository;
 	
 	
 	
@@ -48,21 +48,14 @@ public class ClientServiceImpl implements Services<Client> {
 	
 	
 	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	public ClientServiceImpl(ClientRepository cl) {
-		this.cl = cl;
+	public ClientServiceImpl(ClientRepository cr) {
+		this.clientRepository = cr;
 	}
 
 	@Override
-	public Club findById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String findNameById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client findById(int theId) {
+		 Client theClient= clientRepository.findById(theId).get();
+		 return theClient;
 	}
 
 
@@ -70,17 +63,9 @@ public class ClientServiceImpl implements Services<Client> {
 	public List<Client> findAll() {
   
 		
-		return cl.findAll();
+		return clientRepository.findAll();
 	}
 
-
-	@Override
-	public Client findClientById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 	
 	@Override
 	public Client findByClientName(String userName) {
@@ -109,13 +94,10 @@ public class ClientServiceImpl implements Services<Client> {
 	@Transactional
 	public void save(Client theClient) {
 		theClient.setPassword(passwordEncoder.encode(theClient.getPassword()));
-		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-		System.out.println(theClient.getRole());
-		System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-
 //		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
 		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName(theClient.getRole())));
-		clientDAO.saveClient(theClient);		
+		clientDAO.saveClient(theClient);
+		
 	}
 
 }

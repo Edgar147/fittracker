@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fittracker.fittracker.dao.ClientDAO;
 import com.fittracker.fittracker.entity.Client;
@@ -89,21 +90,21 @@ public class ClientController {
 
 		
 //		Club te=clubSer.findById(1);
-		String te=clubSer.findNameById(2);
-
-		if (te!=null)
-		{
-			System.out.println(te);
-			System.out.println("ooooooooooooooooooKKKKKK");
-			System.out.println("ooooooooooooooooooKKKKKK");
-		}
-		else {
-			System.out.println(te);
-			System.out.println("fffffffffffff");
-			System.out.println("fffffffffffff");
-
-		}
-		
+//		String te=clubSer.findNameById(2);
+//
+//		if (te!=null)
+//		{
+//			System.out.println(te);
+//			System.out.println("ooooooooooooooooooKKKKKK");
+//			System.out.println("ooooooooooooooooooKKKKKK");
+//		}
+//		else {
+//			System.out.println(te);
+//			System.out.println("fffffffffffff");
+//			System.out.println("fffffffffffff");
+//
+//		}
+//		
 		int clid=theClient.getClubId();
 		Club theClub=clubSer.findById(clid);
 		ArrayList c = new ArrayList<>();
@@ -151,9 +152,29 @@ public class ClientController {
 	}
 	
 	
+	@GetMapping("/list-direction")
+	public String listDirection(Model theModel) {
+		
+		
+		List<Direction> theDirections=dicSer.findAll();
+		
+		
+		
+		
+		//add to the spring model
+		theModel.addAttribute("direction",theDirections);
+		
+		return "list-direction";
+	}
+	
+	
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
-		
+		Client x=cliSer.findById(5);
+		System.out.println("ooooo");
+		System.out.println(x.getFirstName());
+		System.out.println("ooooo");
+		System.out.println("ooooo");
 		return "login-page";
 		
 	}
@@ -162,10 +183,10 @@ public class ClientController {
 	@GetMapping("/home")
 	public String showMyHome(Model model,@ModelAttribute("client") Client theClient) {
 	    Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String aaa = loggedInUser.getName(); 
+	    String login = loggedInUser.getName(); 
 	    
 
-	     Client user = cd.findByClientName("tufta");
+	     Client user = cd.findByClientName(login);
 
 	    
 		String role=user.getRole();
@@ -173,10 +194,7 @@ public class ClientController {
 		int clubId= user.getClubId();
 		
 		Club club= clubSer.findById(clubId);
-		
-		System.out.println("ddddddddddddddd");
-		System.out.println(club.getName());
-		System.out.println("ddddddddddddddd");
+
 	    model.addAttribute("role", role);
 	    model.addAttribute("clientId", clientId);
 	    model.addAttribute("theClub", club.getName());
@@ -185,5 +203,34 @@ public class ClientController {
 	}
 	
 	
+	@GetMapping("/addClub")
+	public String addClub(Model theModel) {
+		
+		return "add-club";
+	}
+	
+	@PostMapping("/addNewClub")
+	public String addNewClub(@RequestParam("x") int value){
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+
+		
+		
+		System.out.println("fffffff");
+		System.out.println("fffffff");
+		Club c=clubSer.findById(value);
+		
+		System.out.println(value);
+		System.out.println(login);
+		System.out.println("fffffff");
+		System.out.println("fffffff");
+		client.addClub(c);
+		//cliSer.save(client);
+
+		
+		return "home";
+	}
 	
 }

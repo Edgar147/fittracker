@@ -22,28 +22,18 @@ public class DirectionServiceImpl implements Services<Direction> {
 	
 
 	@Override
-	public Club findById(int theId) {
-		// TODO Auto-generated method stub
+	public Direction findById(int theId) {
+
 		return null;
 	}
 
-	@Override
-	public String findNameById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
-	public List<Client> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Direction> findAll() {
+		return direcDAO.findAll();
 	}
 
-	@Override
-	public Client findClientById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) {

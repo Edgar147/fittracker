@@ -17,13 +17,11 @@ import com.fittracker.fittracker.entity.Direction;
 public interface Services<T>  extends UserDetailsService{
 		
 
-	public Club findById(int theId);
+	public T findById(int theId);
+		
+	//public String findNameById(int theId);
 	
-	public Client findClientById(int theId);
-	
-	public String findNameById(int theId);
-	
-	public List<Client> findAll();
+	public List<T> findAll();
 
 	public UserDetails loadUserByUsername(String userName);
 

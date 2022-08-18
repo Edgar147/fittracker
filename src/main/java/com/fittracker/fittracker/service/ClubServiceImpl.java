@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fittracker.fittracker.dao.ClubDAO;
-import com.fittracker.fittracker.dao.ClubRepository;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.repository.ClubRepository;
 
 @Service
 @Component("clubSer")
@@ -51,6 +51,12 @@ public class ClubServiceImpl implements Services<Club> {
 		return theClub;
 	}
 
+	
+	
+	
+	
+	//IMPORTANT!!! For custom  requests by hql
+	/*
 	@Override
 	public String findNameById(int theId) {
         
@@ -63,18 +69,13 @@ public class ClubServiceImpl implements Services<Club> {
         
 		return theClub.toString();
 	}
+	*/
 
 	@Override
-	public List<Client> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Club> findAll() {
+		return clubRepository.findAll();
 	}
 
-	@Override
-	public Client findClientById(int theId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) {
@@ -91,7 +92,7 @@ public class ClubServiceImpl implements Services<Club> {
 	@Override
 	@Transactional
 	public void save(Club theClub) {
-		clubDAO.saveClub(theClub);
+		clubRepository.save(theClub); //YOU CAN USE 		clubDAO.saveClub(theClub); as well
 		
 	}
 

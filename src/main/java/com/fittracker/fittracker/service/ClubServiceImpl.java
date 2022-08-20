@@ -104,5 +104,12 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 
+	@Override
+	public void setCount2(int i, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

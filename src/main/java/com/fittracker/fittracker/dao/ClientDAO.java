@@ -8,4 +8,5 @@ public interface ClientDAO {
 	
     public Client findByClientName(String userName);
 
+    public void setCountOfClient(int i, String name);
 }

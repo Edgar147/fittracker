@@ -104,6 +104,12 @@ public class ClientServiceImpl implements Services<Client> {
 	public void deleteById(int t) {
 		clientRepository.deleteById(t);		
 	}
+
+	@Override
+	@Transactional
+	public void setCount2(int i, String name) {
+		clientDAO.setCountOfClient(i, name);		
+	}
 	
 	
 

@@ -1,6 +1,7 @@
 package com.fittracker.fittracker.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -63,5 +64,24 @@ public class ClientDAOImpl implements ClientDAO {
 
 		return theClient;
 	}
+
+
+
+
+	@Override
+	public void setCountOfClient(int count,String clientName) {
+		Session currentSession = entityManager.unwrap(Session.class);
+	
+		
+		
+		
+		//TO WORK THIS, I DELETED Client,class
+		TypedQuery<Client> theQuery = currentSession.createQuery(" update Client u set u.count =: uCount where firstName=:uName").setParameter("uName", clientName).setParameter("uCount", count);
+	theQuery.executeUpdate();
+	}
+	
+	
+	
+	
 
 }

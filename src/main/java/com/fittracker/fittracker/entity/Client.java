@@ -68,7 +68,8 @@ public class Client {
 	@Column(name = "role")
 	private String role;
 
-	
+	@Column(name="count")
+	private int count;
 	
 	
 	
@@ -80,6 +81,18 @@ public class Client {
 
 	
 	
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		
+		
+		this.count = count;
+	}
+
+
 	public String getRole() {
 		return role;
 	}

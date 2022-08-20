@@ -64,5 +64,13 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 
 
+	@Override
+	public void setCount2(int i, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }

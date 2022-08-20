@@ -30,5 +30,7 @@ public interface Services<T>  extends UserDetailsService{
 	public void save(T t);
 	
 	public void deleteById(int t);
+	
+	public void setCount2(int i, String name);
 
 }

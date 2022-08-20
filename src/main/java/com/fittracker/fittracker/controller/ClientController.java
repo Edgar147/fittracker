@@ -183,7 +183,7 @@ public class ClientController {
 	
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
-		Client x=cliSer.findById(5);
+		//Client x=cliSer.findById(5);
 	
 		return "login-page";
 		
@@ -274,7 +274,35 @@ ArrayList<Client> L= new ArrayList<>();
 	}
 	
 	
-	
+	@PostMapping("/presence")
+	public String PresenceClient(Model model) {
+		
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    
+	    int count=client.getCount();
+	    
+	    
+	    if(count==1) {
+	    	cliSer.setCount2(0,client.getFirstName());
+			
+
+	    }
+	    else {
+	    	cliSer.setCount2(1,client.getFirstName());
+	    	
+	    }
+	    
+	    System.out.println("ttttt");
+	    System.out.println("ttttt");
+	    System.out.println("ttttt");
+	    System.out.println(count);
+		return "redirect:/home";
+		
+		
+	}
 	
 	
 	

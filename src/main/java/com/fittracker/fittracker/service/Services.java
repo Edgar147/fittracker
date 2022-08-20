@@ -28,5 +28,7 @@ public interface Services<T>  extends UserDetailsService{
 	public Client findByClientName(String userName);
 	
 	public void save(T t);
+	
+	public void deleteById(int t);
 
 }

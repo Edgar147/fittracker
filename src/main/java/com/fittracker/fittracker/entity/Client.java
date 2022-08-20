@@ -31,7 +31,7 @@ public class Client {
 	
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "clients_roles", 
 	joinColumns = @JoinColumn(name = "client_id"), 
 	inverseJoinColumns = @JoinColumn(name = "role_id"))

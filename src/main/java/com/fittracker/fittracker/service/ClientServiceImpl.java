@@ -100,4 +100,11 @@ public class ClientServiceImpl implements Services<Client> {
 		
 	}
 
+	@Override
+	public void deleteById(int t) {
+		clientRepository.deleteById(t);		
+	}
+	
+	
+
 }

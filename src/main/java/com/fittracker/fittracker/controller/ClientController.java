@@ -264,7 +264,14 @@ ArrayList<Client> L= new ArrayList<>();
 	}
 	
 	
-	
+	@GetMapping("/deleteClient")
+	public String delete(@RequestParam("yyy") int theId) {
+		cliSer.deleteById(theId);
+		
+		return "home";
+		
+		
+	}
 	
 	
 	

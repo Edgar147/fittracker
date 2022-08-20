@@ -56,5 +56,13 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 
 
+	@Override
+	public void deleteById(int t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }

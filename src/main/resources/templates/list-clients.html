@@ -48,6 +48,7 @@
 	<td th:text="${tempClients.lastName}"/>
 	<td th:text="${tempClients.email}"/>
 	<td ><a th:href="@{/updateClient(xxx=${tempClients.id})}" class="btn btn-primary btn-sm ">Update</a></td>
+	<td ><a th:href="@{/deleteClient(yyy=${tempClients.id})}" class="btn btn-warning btn-sm ">Delete</a></td>
 	
 </tr>
 

@@ -97,5 +97,12 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 
+	@Override
+	public void deleteById(int t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

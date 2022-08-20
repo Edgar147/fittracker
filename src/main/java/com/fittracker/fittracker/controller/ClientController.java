@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -82,7 +83,7 @@ public class ClientController {
 	
 	
 	@PostMapping("/save")
-	public String saveClient(@ModelAttribute("client") Client theClient){
+	public String saveClient(@ModelAttribute("client") Client theClient,@Nullable @RequestParam("newPass") String value){
 		
 //		
 //		theClient.addClub(theClub);
@@ -105,12 +106,24 @@ public class ClientController {
 //
 //		}
 //		
+		
+		
+		
 		int clid=theClient.getClubId();
 		Club theClub=clubSer.findById(clid);
 		ArrayList c = new ArrayList<>();
 		c.add(theClub);
 		theClient.setClubs(c);
 
+		
+		if(value != null) {
+			theClient.setPassword(value);
+		}
+		
+		
+
+		
+		
 		cliSer.save(theClient);
 		
 		
@@ -171,10 +184,7 @@ public class ClientController {
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
 		Client x=cliSer.findById(5);
-		System.out.println("ooooo");
-		System.out.println(x.getFirstName());
-		System.out.println("ooooo");
-		System.out.println("ooooo");
+	
 		return "login-page";
 		
 	}
@@ -216,21 +226,54 @@ public class ClientController {
 	    String login = loggedInUser.getName(); 
 	    Client client = cd.findByClientName(login);
 
+
+
+	    
+	    
+	    
+	    
+		Club club=clubSer.findById(value);
+
+
 		
-		
-		System.out.println("fffffff");
-		System.out.println("fffffff");
-		Club c=clubSer.findById(value);
-		
-		System.out.println(value);
-		System.out.println(login);
-		System.out.println("fffffff");
-		System.out.println("fffffff");
-		client.addClub(c);
-		//cliSer.save(client);
+ArrayList<Client> L= new ArrayList<>();
+	L.add(client);
+		club.setClients(L);
+		clubSer.save(club);
 
 		
 		return "home";
 	}
+	
+	
+	@GetMapping("/updateClient")
+	public String UpdateClient(@ModelAttribute("xxx") int theId, Model theModel)
+	{
+		//get the employee from the service
+		Client theClient = cliSer.findById(theId);
+		String thePassword=theClient.getPassword();
+		
+		//set employeee as a model attribute to pre-populate the form
+		theModel.addAttribute("client", theClient);
+		theModel.addAttribute("password", thePassword);
+		
+		//send over to our form
+		
+		return "client-update-form";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

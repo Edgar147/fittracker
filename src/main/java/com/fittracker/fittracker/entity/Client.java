@@ -152,11 +152,17 @@ public class Client {
 
 
 	public String getPassword() {
-		return password;
+		System.out.println("HEEEEEWASSSTHsssEREE");
+		System.out.println("HEEEEEWASSSTsssHEREE");
+		System.out.println("HEEEEEWASSSTsssHEREE");return password;
 	}
 
 
 	public void setPassword(String password) {
+
+		System.out.println("HEEEEEWASSSTHEREE");
+		System.out.println("HEEEEEWASSSTHEREE");
+		System.out.println("HEEEEEWASSSTHEREE");
 		this.password = password;
 	}
 

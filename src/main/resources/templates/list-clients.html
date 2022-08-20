@@ -35,6 +35,7 @@
 <th>First name</th>
 <th>Last name</th>
 <th>Email</th>
+<th>Action</th>
 
 
 
@@ -46,6 +47,8 @@
 	<td th:text="${tempClients.firstName}"/>
 	<td th:text="${tempClients.lastName}"/>
 	<td th:text="${tempClients.email}"/>
+	<td ><a th:href="@{/updateClient(xxx=${tempClients.id})}" class="btn btn-primary btn-sm ">Update</a></td>
+	
 </tr>
 
 </tbody>

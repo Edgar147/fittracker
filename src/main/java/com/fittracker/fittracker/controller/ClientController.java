@@ -1,5 +1,6 @@
 package com.fittracker.fittracker.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.fittracker.fittracker.dao.ClientDAO;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Visit;
 import com.fittracker.fittracker.service.Services;
 
 @Controller
@@ -41,6 +43,10 @@ public class ClientController {
 	@Autowired
 	@Qualifier("clubSer")
 	private Services<Club> clubSer;
+	
+	@Autowired
+	@Qualifier("visSer")
+	private Services<Visit> visSer;
 	
 	@Autowired
 	private ClientDAO cd;
@@ -309,6 +315,29 @@ ArrayList<Client> L= new ArrayList<>();
 	
 	
 	
+	
+	@PostMapping("/saveVisit")
+	public String SaveVisit(@RequestParam("club_id") int club_id,Model model) {
+		
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    
+	    
+	    
+	    int count=client.getCount();
+	    LocalDateTime localDateTime = LocalDateTime.now();
+
+	    Visit theVisit= new Visit(client.getId(),club_id,localDateTime);
+	    
+	    visSer.save(theVisit);
+	    
+	 
+		return "redirect:/home";
+		
+		
+	}
 	
 	
 	

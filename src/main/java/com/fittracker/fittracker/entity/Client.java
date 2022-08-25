@@ -30,7 +30,7 @@ public class Client {
 
 	
 	
-	
+	//THE SAME BUT FOR VISITS
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "clients_roles", 
 	joinColumns = @JoinColumn(name = "client_id"), 

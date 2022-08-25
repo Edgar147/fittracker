@@ -48,13 +48,37 @@
 </div>
 
 
-	<form th:action="@{/presence}" 			   method="POST">
+
+
+
+
+
+
+
+
+
+<div th:each="theClubs: ${clubs}">
+	<div class="container py-5 bg-light " style="margin-top: 50px;   width: 80%;" >
+
+	<p th:text="${theClubs.name}"/>	<form th:action="@{/presence}" 			   method="POST">
 	
 		<input class="btn btn-warning"  type="submit" value="TRY ME" />
 		
 		
 	
 	</form>	
+	
+</div>
+
+
+
+</div>
+
+
+
+
+
+
 
 
 

@@ -198,6 +198,8 @@ public class ClientController {
 
 	     Client user = cd.findByClientName(login);
 
+			List<Club> clubs=user.getClubs();
+
 	    
 		String role=user.getRole();
 		int clientId=user.getId(); 
@@ -208,6 +210,7 @@ public class ClientController {
 	    model.addAttribute("role", role);
 	    model.addAttribute("clientId", clientId);
 	    model.addAttribute("theClub", club.getName());
+	    model.addAttribute("clubs", clubs);
 		return "home";
 		
 	}

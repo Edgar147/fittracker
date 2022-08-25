@@ -41,6 +41,10 @@
 
 <a href="/addClub">Add club</a>
 
+<!-- <a href="@{/clientControll(uuu=${theClubs.id})}">Manager controll page</a>
+ -->
+ <a href="/clientControll">Manager controll page</a>
+
 
 <!-- <div sec:authorize="hasRole('ROLE_ADMIN')">
   This content is only shown to administrators.
@@ -73,6 +77,8 @@
 					
 		
 		</form>
+		<a th:href="@{/list-visits(ggg=${theClubs.id})}" class="btn btn-primary btn-sm ">Show history</a>
+		
 	
 </div>
 

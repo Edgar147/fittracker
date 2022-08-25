@@ -38,11 +38,25 @@ public class Client {
 	private Collection<Role> roles;
 	
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "visit", 
+	joinColumns = @JoinColumn(name = "client_id"), 
+	inverseJoinColumns = @JoinColumn(name = "id"))
+	private List<Visit> visits;
 	
 	
 	
 	
-	
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -165,17 +179,14 @@ public class Client {
 
 
 	public String getPassword() {
-		System.out.println("HEEEEEWASSSTHsssEREE");
-		System.out.println("HEEEEEWASSSTsssHEREE");
-		System.out.println("HEEEEEWASSSTsssHEREE");return password;
+
+		return password;
 	}
 
 
 	public void setPassword(String password) {
 
-		System.out.println("HEEEEEWASSSTHEREE");
-		System.out.println("HEEEEEWASSSTHEREE");
-		System.out.println("HEEEEEWASSSTHEREE");
+
 		this.password = password;
 	}
 

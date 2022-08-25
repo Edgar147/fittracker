@@ -45,6 +45,11 @@ public class Visit {
 
 	
 	
+	public Visit() {
+	}
+
+
+
 	public Visit(int clientId, int clubId, LocalDateTime startDate ) {
 		this.clientId = clientId;
 		this.clubId = clubId;
@@ -109,6 +114,14 @@ public class Visit {
 
 	public void setDuration(Float duration) {
 		this.duration = duration;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Visit [id=" + id + ", clientId=" + clientId + ", clubId=" + clubId + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", duration=" + duration + "]";
 	}
 	
 	

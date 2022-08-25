@@ -2,7 +2,9 @@ package com.fittracker.fittracker.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -304,10 +306,6 @@ ArrayList<Client> L= new ArrayList<>();
 	    	
 	    }
 	    
-	    System.out.println("ttttt");
-	    System.out.println("ttttt");
-	    System.out.println("ttttt");
-	    System.out.println(count);
 		return "redirect:/home";
 		
 		
@@ -338,6 +336,85 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		
 	}
+	
+	@GetMapping("/list-visits")
+	public String listVisits(@ModelAttribute("ggg") int club_id, Model theModel) {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    
+		List<Visit> theVisits=client.getVisits();
+		
+		 List<Visit> myVisits = new ArrayList<>();
+
+		for(int i=0;i<theVisits.size();i++) {
+			if(theVisits.get(i).getClubId()==club_id) {
+				myVisits.add(theVisits.get(i));
+			}
+		}
+		
+		Club club= clubSer.findById(club_id);
+		String nameClub=club.getName();
+		
+		
+		
+		
+		System.out.println("eeeee");
+		System.out.println("eeeee");
+		System.out.println("eeeee");
+		System.out.println("eeeee");
+		System.out.println(theVisits);
+		//add to the spring model
+		theModel.addAttribute("visits",myVisits);
+		theModel.addAttribute("clubName",nameClub);
+		
+		return "list-visits";
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/clientControll")
+	public String ClientControllByManager(Model model) {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    List<Club> clubs=client.getClubs();
+		
+		 //List<Client> theClients = cliSer.findAll();
+		 List<Client> myClients = new ArrayList<>();
+
+	    
+		for(int i=0;i<clubs.size();i++) {
+//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+//				myClients.add(myClients.get(i));
+//			}
+			myClients=clubs.get(i).getClients();
+			
+			myClients.addAll(myClients);
+			
+			
+		}
+	    	
+		Set<Client> set = new HashSet<>(myClients);
+
+	    	
+		
+		model.addAttribute("clients",set);
+
+		return "client-controll";
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

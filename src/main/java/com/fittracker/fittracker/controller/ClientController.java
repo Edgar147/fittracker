@@ -419,5 +419,37 @@ ArrayList<Client> L= new ArrayList<>();
 	
 	
 	
+	@GetMapping("/club-client-list")
+	public String ClubClientListForManager(@ModelAttribute("ppp") int club_id, Model theModel) {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    
+	    
+	    
+	    
+	    Club club=clubSer.findById(club_id);
+	    List<Client> clients=club.getClients();
+	    
+
+		
+		
+		
+
+		theModel.addAttribute("clients",clients);
+		theModel.addAttribute("clubName",club.getName());
+
+		
+		return "club-client-list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

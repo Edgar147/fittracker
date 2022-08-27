@@ -111,5 +111,12 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 
+	@Override
+	public void allActivityTo0(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

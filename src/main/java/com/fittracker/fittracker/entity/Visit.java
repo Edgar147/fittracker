@@ -36,36 +36,45 @@ public class Visit {
 	
 	@Column(name="start_date")
 	private LocalDateTime startDate;
-	
-	@Column(name="end_date")
-	private LocalDateTime endDate;
-	
-	@Column(name = "duration")
-	private Float duration;
+
 
 	
+	@Column(name = "is_active_now")
+	private int isActiveNow;
 	
+	
+	public int getIsActiveNow() {
+		return isActiveNow;
+	}
+
+
+
+	public void setIsActiveNow(int isActiveNow) {
+		this.isActiveNow = isActiveNow;
+	}
+
+
+
 	public Visit() {
 	}
 
 
 
-	public Visit(int clientId, int clubId, LocalDateTime startDate ) {
+	public Visit(int clientId, int clubId, LocalDateTime startDate,int isActiveNow ) {
 		this.clientId = clientId;
 		this.clubId = clubId;
 		this.startDate = startDate;
+		this.isActiveNow= isActiveNow;
 
 	}
 	
 	
 	
-	public Visit(Long id, int clientId, int clubId, LocalDateTime startDate, LocalDateTime endDate, Float duration) {
+	public Visit(Long id, int clientId, int clubId, LocalDateTime startDate) {
 //		this.id = id;
 		this.clientId = clientId;
 		this.clubId = clubId;
 		this.startDate = startDate;
-		this.endDate = endDate;
-		this.duration = duration;
 	}
 
 	public Long getId() {
@@ -100,28 +109,14 @@ public class Visit {
 		this.startDate = startDate;
 	}
 
-	public LocalDateTime getEndDate() {
-		return endDate;
-	}
 
-	public void setEndDate(LocalDateTime endDate) {
-		this.endDate = endDate;
-	}
-
-	public Float getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Float duration) {
-		this.duration = duration;
-	}
 
 
 
 	@Override
 	public String toString() {
 		return "Visit [id=" + id + ", clientId=" + clientId + ", clubId=" + clubId + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", duration=" + duration + "]";
+				+ ", endDate=" + ", duration=" +"]";
 	}
 	
 	

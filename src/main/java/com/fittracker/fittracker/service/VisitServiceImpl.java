@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fittracker.fittracker.dao.ClientDAO;
 import com.fittracker.fittracker.dao.DirectionDAO;
+import com.fittracker.fittracker.dao.VisitDAO;
 import com.fittracker.fittracker.entity.Client;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
@@ -18,7 +20,12 @@ import com.fittracker.fittracker.repository.VisitRepository;
 @Service
 @Component("visSer")
 public class VisitServiceImpl implements Services<Visit> {
-
+	
+	
+	@Autowired
+	private VisitDAO visitDao;
+	
+	
 	private VisitRepository visitRepository;
 	public VisitServiceImpl( VisitRepository theVisitRepository) {
 		visitRepository=theVisitRepository;
@@ -72,6 +79,10 @@ public class VisitServiceImpl implements Services<Visit> {
 		visitRepository.save(theVisit);	
 	}
 
+	
+	public void allActivityTo0(int clientId) {
+		visitDao.setActiveClientToZero(clientId);
+	}
 
 
 

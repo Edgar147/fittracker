@@ -110,6 +110,12 @@ public class ClientServiceImpl implements Services<Client> {
 	public void setCount2(int i, String name) {
 		clientDAO.setCountOfClient(i, name);		
 	}
+
+	@Override
+	public void allActivityTo0(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

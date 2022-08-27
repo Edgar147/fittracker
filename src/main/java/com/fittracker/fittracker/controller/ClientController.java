@@ -326,8 +326,11 @@ ArrayList<Client> L= new ArrayList<>();
 	    
 	    int count=client.getCount();
 	    LocalDateTime localDateTime = LocalDateTime.now();
+	    visSer.allActivityTo0(client.getId());
 
-	    Visit theVisit= new Visit(client.getId(),club_id,localDateTime);
+	    Visit theVisit= new Visit(client.getId(),club_id,localDateTime,1);
+	    
+	    
 	    
 	    visSer.save(theVisit);
 	    

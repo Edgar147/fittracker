@@ -72,5 +72,13 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 
 
+	@Override
+	public void allActivityTo0(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }

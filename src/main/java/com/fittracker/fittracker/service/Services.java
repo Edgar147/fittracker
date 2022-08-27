@@ -33,4 +33,6 @@ public interface Services<T>  extends UserDetailsService{
 	
 	public void setCount2(int i, String name);
 
+	public void allActivityTo0(int id);
+
 }

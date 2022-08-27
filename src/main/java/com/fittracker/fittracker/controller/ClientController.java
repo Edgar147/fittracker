@@ -253,7 +253,7 @@ ArrayList<Client> L= new ArrayList<>();
 		clubSer.save(club);
 
 		
-		return "home";
+		return "redirect:/home";
 	}
 	
 	
@@ -417,6 +417,62 @@ ArrayList<Client> L= new ArrayList<>();
 	
 	
 	
+	@GetMapping("/clientControll-actives")
+	public String ClientControllofActivsByManager(Model model) {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    List<Club> clubs=client.getClubs();
+		
+		 //List<Client> theClients = cliSer.findAll();
+		 List<Client> myClients = new ArrayList<>();
+
+	    
+		for(int i=0;i<clubs.size();i++) {
+//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+//				myClients.add(myClients.get(i));
+//			}
+			
+		
+			
+			
+			myClients=clubs.get(i).getClients();
+			
+			myClients.addAll(myClients);
+			
+			
+		}
+		
+		 List<Client> myActiveClients = new ArrayList<>();
+		
+		 for(int i=0;i<myClients.size();i++) {
+			if( visSer.getActiveVisit(myClients.get(i).getId())==1) {
+				myActiveClients.add(myClients.get(i));
+			}
+		    }
+		
+		
+		
+	    	
+		Set<Client> setActive = new HashSet<>(myActiveClients);
+
+	   
+		
+		model.addAttribute("clients",setActive);
+
+		return "client-controll-activs";
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -450,7 +506,54 @@ ArrayList<Client> L= new ArrayList<>();
 	
 	
 	
-	
+	@GetMapping("/club-client-list-actives")
+	public String ClubClientActiveListForManager(@ModelAttribute("sss") int club_id, Model theModel) {
+		
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	    String login = loggedInUser.getName(); 
+	    Client client = cd.findByClientName(login);
+	    List<Club> clubs=client.getClubs();
+		
+		 //List<Client> theClients = cliSer.findAll();
+		 List<Client> myClients = new ArrayList<>();
+
+	    
+		for(int i=0;i<clubs.size();i++) {
+//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+//				myClients.add(myClients.get(i));
+//			}
+			
+		
+			
+			
+			myClients=clubs.get(i).getClients();
+			
+			myClients.addAll(myClients);
+			
+			
+		}
+		
+		 List<Client> myActiveClients = new ArrayList<>();
+		
+		 for(int i=0;i<myClients.size();i++) {
+			if( visSer.getActiveVisitClub(myClients.get(i).getId(),club_id)==1) {
+				myActiveClients.add(myClients.get(i));
+			}
+		    }
+		
+		
+		
+	    	
+		Set<Client> setActive = new HashSet<>(myActiveClients);
+
+	   
+		
+		theModel.addAttribute("clients",setActive);
+
+
+		
+		return "club-client-list-actives";
+	}
 	
 	
 	

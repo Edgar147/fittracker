@@ -118,5 +118,19 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 
+	@Override
+	public int getActiveVisit(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getActiveVisitClub(int id, int clubId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }

@@ -44,6 +44,7 @@
 <!-- <a href="@{/clientControll(uuu=${theClubs.id})}">Manager controll page</a>
  -->
  <a href="/clientControll">Manager controll page</a>
+ <a href="/clientControll-actives">Manager controll active  page</a>
 
 
 <!-- <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -79,6 +80,7 @@
 		</form>
 		<a th:href="@{/list-visits(ggg=${theClubs.id})}" class="btn btn-primary btn-sm ">Show history</a>
 		<a th:href="@{/club-client-list(ppp=${theClubs.id})}" class="btn btn-primary btn-sm ">Show clients of club</a>
+		<a th:href="@{/club-client-list-actives(sss=${theClubs.id})}" class="btn btn-primary btn-sm ">Show active clients of club</a>
 		
 	
 </div>

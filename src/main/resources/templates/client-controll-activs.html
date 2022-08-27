@@ -8,7 +8,7 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 
-<title>Show Visits</title>
+<title>Show Clients</title>
 </head>
 <body>
 
@@ -21,7 +21,7 @@
 		
 		<div class="form-outline mb-3"
 				style="display: inline-block; margin-left: 32%;">	
-	<h1>Show  club of <span th:text="${clubName}" /></h1>
+	<h1>Show  clients</h1>
 	
 	
 	
@@ -32,19 +32,21 @@
 
 
 <thead>
-<!-- <th>Club name</th>
- --><th>Start date</th>
-
+<th>First name</th>
+<th>Last name</th>
+<th>Email</th>
+<!-- <th>Action</th>
+ -->
 
 
 </thead>
 
 <tbody>
 
-<tr th:each="theVisit: ${visits}">
-	<!-- <td th:text="${theVisit.clubId}"/> -->
-	<!-- <td th:text="${theVisit.clientId}"/> -->
-	<td th:text="${theVisit.startDate}"/>
+<tr th:each="tempClients: ${clients}">
+	<td th:text="${tempClients.firstName}"/>
+	<td th:text="${tempClients.lastName}"/>
+	<td th:text="${tempClients.email}"/>
 <!-- 	<td ><a th:href="@{/updateClient(xxx=${tempClients.id})}" class="btn btn-primary btn-sm ">Update</a></td>
 	<td ><a th:href="@{/deleteClient(yyy=${tempClients.id})}" class="btn btn-warning btn-sm ">Delete</a></td> -->
 	

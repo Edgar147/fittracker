@@ -85,5 +85,21 @@ public class VisitServiceImpl implements Services<Visit> {
 	}
 
 
+	@Override
+	public int getActiveVisit(int id) {
+		int x=visitDao.getActiveVisitId(id);
+		
+		return x;
+	}
+
+
+	@Override
+	public int getActiveVisitClub(int id, int clubId) {
+	int x=visitDao.getActiveVisitIdClub(id,clubId);
+		
+		return x;
+	}
+
+
 
 }

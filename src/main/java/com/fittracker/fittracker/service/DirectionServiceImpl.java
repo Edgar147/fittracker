@@ -80,5 +80,21 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 
 
+	@Override
+	public int getActiveVisit(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int getActiveVisitClub(int id, int clubId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
 
 }

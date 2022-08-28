@@ -558,4 +558,19 @@ ArrayList<Client> L= new ArrayList<>();
 	
 	
 	
+	
+	@GetMapping("/client-profile")
+	public String ClientProfile(@ModelAttribute("param") int client_id, Model theModel) {
+		
+		Client theClient= cliSer.findById(client_id);
+		
+		theModel.addAttribute("client",theClient);
+
+
+		
+		return "client-profile";
+	}
+	
+	
+	
 }

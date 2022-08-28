@@ -44,7 +44,8 @@
 <tbody>
 
 <tr th:each="theClient: ${clients}">
-	 <td th:text="${theClient.firstName}"/>
+<!-- 	 <td th:text="${theClient.firstName}"/>
+ -->	 <td><a th:text="${theClient.firstName}" th:href="@{/client-profile(param=${theClient.id})}" /></td>
 	<!-- <td th:text="${theVisit.clientId}"/> -->
 	<td th:text="${theClient.id}"/>
 	<td th:text="${theClient.role}"/>

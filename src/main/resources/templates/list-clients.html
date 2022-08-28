@@ -44,7 +44,7 @@
 <tbody>
 
 <tr th:each="tempClients: ${clients}">
-	<td th:text="${tempClients.firstName}"/>
+ <td><a th:text="${tempClients.firstName}" th:href="@{/client-profile(param=${tempClients.id})}" /></td>
 	<td th:text="${tempClients.lastName}"/>
 	<td th:text="${tempClients.email}"/>
 	<td ><a th:href="@{/updateClient(xxx=${tempClients.id})}" class="btn btn-primary btn-sm ">Update</a></td>

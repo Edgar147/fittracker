@@ -103,7 +103,7 @@ public class Club {
 	}
 
 	public void setClients(List<Client> clients) {
-		this.clients = clients;
+		this.clients.addAll(clients);
 	}
 
 	@Override

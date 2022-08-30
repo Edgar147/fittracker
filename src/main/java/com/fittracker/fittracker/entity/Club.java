@@ -13,43 +13,34 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="club")
+@Table(name = "club")
 public class Club {
-	
-	
+
 	@ManyToMany
-	@JoinTable(
-		name="club_client",
-		joinColumns=@JoinColumn(name="club_id"),
-		inverseJoinColumns=@JoinColumn(name="client_id")
-			)
-	private List<Client> clients;
-	
-	
-	
-	
-	
+	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
+	private List<User> clients;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="address")
+
+	@Column(name = "address")
 	private String address;
-	
-	@Column(name="coord")
+
+	@Column(name = "coord")
 	private String coord;
-	
-	@Column(name="scheldue")
+
+	@Column(name = "scheldue")
 	private String scheldue;
 
 	public Club() {
-		
+
 	}
 
-	public Club( String name, String address, String coord, String scheldue) {
+	public Club(String name, String address, String coord, String scheldue) {
 		this.name = name;
 		this.address = address;
 		this.coord = coord;
@@ -96,13 +87,11 @@ public class Club {
 		this.scheldue = scheldue;
 	}
 
-	
-	
-	public List<Client> getClients() {
+	public List<User> getUsers() {
 		return clients;
 	}
 
-	public void setClients(List<Client> clients) {
+	public void setClients(List<User> clients) {
 		this.clients.addAll(clients);
 	}
 
@@ -111,8 +100,5 @@ public class Club {
 		return "Club [id=" + id + ", name=" + name + ", address=" + address + ", coord=" + coord + ", scheldue="
 				+ scheldue + "]";
 	}
-	
-
-	
 
 }

@@ -14,7 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.service.Services;
 
 //import com.luv2code.springsecurity.demo.entity.User;
@@ -37,7 +37,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		
 		System.out.println("userName=" + userName);
 
-		Client theUser = userService.findByClientName(userName);
+		User theUser = userService.findByClientName(userName);
 		
 		// now place in the session
 		HttpSession session = request.getSession();

@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 

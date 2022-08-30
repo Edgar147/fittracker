@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fittracker.fittracker.dao.ClubDAO;
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.repository.ClubRepository;
@@ -84,7 +84,7 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 	@Override
-	public Client findByClientName(String userName) {
+	public User findByClientName(String userName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

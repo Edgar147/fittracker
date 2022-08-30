@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.entity.User;
 
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
@@ -25,7 +25,7 @@ public interface Services<T>  extends UserDetailsService{
 
 	public UserDetails loadUserByUsername(String userName);
 
-	public Client findByClientName(String userName);
+	public User findByClientName(String userName);
 	
 	public void save(T t);
 	

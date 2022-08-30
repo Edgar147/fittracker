@@ -15,19 +15,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fittracker.fittracker.dao.ClientDAO;
+import com.fittracker.fittracker.dao.UserDAO;
 import com.fittracker.fittracker.dao.RoleDAO;
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.entity.Role;
 import com.fittracker.fittracker.repository.ClientRepository;
 @Service
 @Component("cliSer")
-public class ClientServiceImpl implements Services<Client> {
+public class UserServiceImpl implements Services<User> {
 
 	@Autowired
-	private ClientDAO clientDAO;
+	private UserDAO clientDAO;
 	
 	
 	@Autowired
@@ -38,7 +38,7 @@ public class ClientServiceImpl implements Services<Client> {
 	
 	
 	@Autowired
-	private ClientDAO clientDao;
+	private UserDAO clientDao;
 
 	@Autowired
 	private RoleDAO roleDao;
@@ -48,19 +48,19 @@ public class ClientServiceImpl implements Services<Client> {
 	
 	
 	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	public ClientServiceImpl(ClientRepository cr) {
+	public UserServiceImpl(ClientRepository cr) {
 		this.clientRepository = cr;
 	}
 
 	@Override
-	public Client findById(int theId) {
-		 Client theClient= clientRepository.findById(theId).get();
+	public User findById(int theId) {
+		 User theClient= clientRepository.findById(theId).get();
 		 return theClient;
 	}
 
 
 	@Override
-	public List<Client> findAll() {
+	public List<User> findAll() {
   
 		
 		return clientRepository.findAll();
@@ -68,7 +68,7 @@ public class ClientServiceImpl implements Services<Client> {
 
 	
 	@Override
-	public Client findByClientName(String userName) {
+	public User findByClientName(String userName) {
 		return clientDao.findByClientName(userName);
 	}
 
@@ -77,7 +77,7 @@ public class ClientServiceImpl implements Services<Client> {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		Client user = clientDao.findByClientName(userName);
+		User user = clientDao.findByClientName(userName);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
@@ -92,7 +92,7 @@ public class ClientServiceImpl implements Services<Client> {
 
 	@Override
 	@Transactional
-	public void save(Client theClient) {
+	public void save(User theClient) {
 		theClient.setPassword(passwordEncoder.encode(theClient.getPassword()));
 //		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
 		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName(theClient.getRole())));

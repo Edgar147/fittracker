@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fittracker.fittracker.dao.ClientDAO;
-import com.fittracker.fittracker.entity.Client;
+import com.fittracker.fittracker.dao.UserDAO;
+import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.entity.Visit;
@@ -35,7 +35,7 @@ public class ClientController {
 	
 	@Autowired
 	@Qualifier("cliSer")
-	private Services<Client> cliSer;
+	private Services<User> cliSer;
 	
 	@Autowired
 	@Qualifier("dicSer")
@@ -51,7 +51,7 @@ public class ClientController {
 	private Services<Visit> visSer;
 	
 	@Autowired
-	private ClientDAO cd;
+	private UserDAO cd;
 	//private List<Client> theClients;
 
 	
@@ -70,7 +70,7 @@ public class ClientController {
 	
 	
 	@GetMapping("/registration/client")
-	public String reg(@ModelAttribute("client") Client theClient) {
+	public String reg(@ModelAttribute("client") User theClient) {
 
 		return "saveClient";
 	}
@@ -91,7 +91,7 @@ public class ClientController {
 	
 	
 	@PostMapping("/save")
-	public String saveClient(@ModelAttribute("client") Client theClient,@Nullable @RequestParam("newPass") String value){
+	public String saveClient(@ModelAttribute("client") User theClient,@Nullable @RequestParam("newPass") String value){
 		
 //		
 //		theClient.addClub(theClub);
@@ -161,7 +161,7 @@ public class ClientController {
 	public String listEmployees(Model theModel) {
 		
 		
-		List<Client> theClients=cliSer.findAll();
+		List<User> theClients=cliSer.findAll();
 
 		
 		
@@ -199,12 +199,12 @@ public class ClientController {
 	
 	
 	@GetMapping("/home")
-	public String showMyHome(Model model,@ModelAttribute("client") Client theClient) {
+	public String showMyHome(Model model,@ModelAttribute("client") User theClient) {
 	    Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
 	    
 
-	     Client user = cd.findByClientName(login);
+	     User user = cd.findByClientName(login);
 
 			List<Club> clubs=user.getClubs();
 
@@ -235,7 +235,7 @@ public class ClientController {
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 
 
 
@@ -247,7 +247,7 @@ public class ClientController {
 
 
 		
-ArrayList<Client> L= new ArrayList<>();
+ArrayList<User> L= new ArrayList<>();
 	L.add(client);
 		club.setClients(L);
 		clubSer.save(club);
@@ -261,7 +261,7 @@ ArrayList<Client> L= new ArrayList<>();
 	public String UpdateClient(@ModelAttribute("xxx") int theId, Model theModel)
 	{
 		//get the employee from the service
-		Client theClient = cliSer.findById(theId);
+		User theClient = cliSer.findById(theId);
 		String thePassword=theClient.getPassword();
 		
 		//set employeee as a model attribute to pre-populate the form
@@ -291,7 +291,7 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    
 	    int count=client.getCount();
 	    
@@ -320,7 +320,7 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    
 	    
 	    
@@ -345,7 +345,7 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    
 		List<Visit> theVisits=client.getVisits();
 		
@@ -384,25 +384,25 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    List<Club> clubs=client.getClubs();
 		
 		 //List<Client> theClients = cliSer.findAll();
-		 List<Client> myClients = new ArrayList<>();
+		 List<User> myClients = new ArrayList<>();
 
 	    
 		for(int i=0;i<clubs.size();i++) {
 //			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
 //				myClients.add(myClients.get(i));
 //			}
-			myClients=clubs.get(i).getClients();
+			myClients=clubs.get(i).getUsers();
 			
 			myClients.addAll(myClients);
 			
 			
 		}
 	    	
-		Set<Client> set = new HashSet<>(myClients);
+		Set<User> set = new HashSet<>(myClients);
 
 	    	
 		
@@ -422,11 +422,11 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    List<Club> clubs=client.getClubs();
 		
 		 //List<Client> theClients = cliSer.findAll();
-		 List<Client> myClients = new ArrayList<>();
+		 List<User> myClients = new ArrayList<>();
 
 	    
 		for(int i=0;i<clubs.size();i++) {
@@ -437,14 +437,14 @@ ArrayList<Client> L= new ArrayList<>();
 		
 			
 			
-			myClients=clubs.get(i).getClients();
+			myClients=clubs.get(i).getUsers();
 			
 			myClients.addAll(myClients);
 			
 			
 		}
 		
-		 List<Client> myActiveClients = new ArrayList<>();
+		 List<User> myActiveClients = new ArrayList<>();
 		
 		 for(int i=0;i<myClients.size();i++) {
 			if( visSer.getActiveVisit(myClients.get(i).getId())==1) {
@@ -455,7 +455,7 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		
 	    	
-		Set<Client> setActive = new HashSet<>(myActiveClients);
+		Set<User> setActive = new HashSet<>(myActiveClients);
 
 	   
 		
@@ -483,13 +483,13 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    
 	    
 	    
 	    
 	    Club club=clubSer.findById(club_id);
-	    List<Client> clients=club.getClients();
+	    List<User> clients=club.getUsers();
 	    
 
 		
@@ -511,11 +511,11 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	    String login = loggedInUser.getName(); 
-	    Client client = cd.findByClientName(login);
+	    User client = cd.findByClientName(login);
 	    List<Club> clubs=client.getClubs();
 		
 		 //List<Client> theClients = cliSer.findAll();
-		 List<Client> myClients = new ArrayList<>();
+		 List<User> myClients = new ArrayList<>();
 
 	    
 		for(int i=0;i<clubs.size();i++) {
@@ -526,14 +526,14 @@ ArrayList<Client> L= new ArrayList<>();
 		
 			
 			
-			myClients=clubs.get(i).getClients();
+			myClients=clubs.get(i).getUsers();
 			
 			myClients.addAll(myClients);
 			
 			
 		}
 		
-		 List<Client> myActiveClients = new ArrayList<>();
+		 List<User> myActiveClients = new ArrayList<>();
 		
 		 for(int i=0;i<myClients.size();i++) {
 			if( visSer.getActiveVisitClub(myClients.get(i).getId(),club_id)==1) {
@@ -544,7 +544,7 @@ ArrayList<Client> L= new ArrayList<>();
 		
 		
 	    	
-		Set<Client> setActive = new HashSet<>(myActiveClients);
+		Set<User> setActive = new HashSet<>(myActiveClients);
 
 	   
 		
@@ -562,7 +562,7 @@ ArrayList<Client> L= new ArrayList<>();
 	@GetMapping("/client-profile")
 	public String ClientProfile(@ModelAttribute("param") int client_id, Model theModel) {
 		
-		Client theClient= cliSer.findById(client_id);
+		User theClient= cliSer.findById(client_id);
 		
 		theModel.addAttribute("client",theClient);
 

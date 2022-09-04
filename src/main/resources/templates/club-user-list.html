@@ -43,7 +43,7 @@
 					<tr th:each="theUser: ${users}">
 						<!-- 	 <td th:text="${theUser.firstName}"/>
  -->
-						<td><a th:text="${theUser.firstName}" th:href="@{/user-profile(param=${theUser.id})}" />
+						<td><a th:text="${theUser.firstName}" th:href="@{/user-profile(user_id=${theUser.id})}" />
 						</td>
 						<!-- <td th:text="${theVisit.userId}"/> -->
 						<td th:text="${theUser.id}" />

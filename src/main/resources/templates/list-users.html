@@ -41,13 +41,15 @@
 				<tbody>
 
 					<tr th:each="tempUsers: ${users}">
-						<td><a th:text="${tempUsers.firstName}" th:href="@{/user-profile(param=${tempUsers.id})}" />
+						<td><a th:text="${tempUsers.firstName}" th:href="@{/user-profile(user_id=${tempUsers.id})}" />
 						</td>
 						<td th:text="${tempUsers.lastName}" />
 						<td th:text="${tempUsers.email}" />
-						<td><a th:href="@{/updateUser(xxx=${tempUsers.id})}" class="btn btn-primary btn-sm ">Update</a>
+						<td><a th:href="@{/updateUser(user_id=${tempUsers.id})}"
+								class="btn btn-primary btn-sm ">Update</a>
 						</td>
-						<td><a th:href="@{/deleteUser(yyy=${tempUsers.id})}" class="btn btn-warning btn-sm ">Delete</a>
+						<td><a th:href="@{/deleteUser(user_id_for_delete=${tempUsers.id})}"
+								class="btn btn-warning btn-sm ">Delete</a>
 						</td>
 
 					</tr>

@@ -75,9 +75,10 @@
 
 
 			</form>
-			<a th:href="@{/list-visits(ggg=${theClubs.id})}" class="btn btn-primary btn-sm ">Show history</a>
-			<a th:href="@{/club-user-list(ppp=${theClubs.id})}" class="btn btn-primary btn-sm ">Show users of club</a>
-			<a th:href="@{/club-user-list-actives(sss=${theClubs.id})}" class="btn btn-primary btn-sm ">Show active
+			<a th:href="@{/list-visits(club_id=${theClubs.id})}" class="btn btn-primary btn-sm ">Show history</a>
+			<a th:href="@{/club-user-list(club_id=${theClubs.id})}" class="btn btn-primary btn-sm ">Show users of
+				club</a>
+			<a th:href="@{/club-user-list-actives(club_id=${theClubs.id})}" class="btn btn-primary btn-sm ">Show active
 				users of club</a>
 
 

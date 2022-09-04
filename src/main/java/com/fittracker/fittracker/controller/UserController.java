@@ -47,7 +47,6 @@ public class UserController {
 
 	@Autowired
 	private UserDAO cd;
-	// private List<User> theUsers;
 
 	@GetMapping("/")
 	public String FirstPage() {
@@ -81,28 +80,7 @@ public class UserController {
 
 	@PostMapping("/save")
 	public String saveUser(@ModelAttribute("user") User theUser,
-			@Nullable @RequestParam("newPass") String value) {
-
-		//
-		// theUser.addClub(theClub);
-		// clubSer.saveClub(theClub);
-
-		// Club te=clubSer.findById(1);
-		// String te=clubSer.findNameById(2);
-		//
-		// if (te!=null)
-		// {
-		// System.out.println(te);
-		// System.out.println("ooooooooooooooooooKKKKKK");
-		// System.out.println("ooooooooooooooooooKKKKKK");
-		// }
-		// else {
-		// System.out.println(te);
-		// System.out.println("fffffffffffff");
-		// System.out.println("fffffffffffff");
-		//
-		// }
-		//
+			@Nullable @RequestParam("newPassword") String value) {
 
 		int user_id = theUser.getClubId();
 		Club theClub = clubSer.findById(user_id);
@@ -195,7 +173,7 @@ public class UserController {
 	}
 
 	@PostMapping("/addNewClub")
-	public String addNewClub(@RequestParam("x") int value) {
+	public String addNewClub(@RequestParam("new_club_id") int value) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
@@ -212,7 +190,7 @@ public class UserController {
 	}
 
 	@GetMapping("/updateUser")
-	public String UpdateUser(@ModelAttribute("xxx") int theId, Model theModel) {
+	public String UpdateUser(@ModelAttribute("user_id") int theId, Model theModel) {
 		// get the employee from the service
 		User theUser = cliSer.findById(theId);
 		String thePassword = theUser.getPassword();
@@ -228,7 +206,7 @@ public class UserController {
 	}
 
 	@GetMapping("/deleteUser")
-	public String delete(@RequestParam("yyy") int theId) {
+	public String delete(@RequestParam("user_id_for_delete") int theId) {
 		cliSer.deleteById(theId);
 
 		return "home";
@@ -276,7 +254,7 @@ public class UserController {
 	}
 
 	@GetMapping("/list-visits")
-	public String listVisits(@ModelAttribute("ggg") int club_id, Model theModel) {
+	public String listVisits(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
@@ -295,10 +273,6 @@ public class UserController {
 		Club club = clubSer.findById(club_id);
 		String nameClub = club.getName();
 
-		System.out.println("eeeee");
-		System.out.println("eeeee");
-		System.out.println("eeeee");
-		System.out.println("eeeee");
 		System.out.println(theVisits);
 		// add to the spring model
 		theModel.addAttribute("visits", myVisits);
@@ -375,7 +349,7 @@ public class UserController {
 	}
 
 	@GetMapping("/club-user-list")
-	public String ClubUserListForManager(@ModelAttribute("ppp") int club_id, Model theModel) {
+	public String ClubUserListForManager(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
@@ -391,7 +365,7 @@ public class UserController {
 	}
 
 	@GetMapping("/club-user-list-actives")
-	public String ClubUserActiveListForManager(@ModelAttribute("sss") int club_id, Model theModel) {
+	public String ClubUserActiveListForManager(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
@@ -428,7 +402,7 @@ public class UserController {
 	}
 
 	@GetMapping("/user-profile")
-	public String UserProfile(@ModelAttribute("param") int user_id, Model theModel) {
+	public String UserProfile(@ModelAttribute("user_id") int user_id, Model theModel) {
 
 		User theUser = cliSer.findById(user_id);
 

@@ -6,14 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-
-public interface ClientRepository extends JpaRepository<User, Integer> {
-
-	
-	//c'est tout, .... data jpa va faire les methodes crud necessaires
-	
-	
-	
+	// c'est tout, .... data jpa va faire les methodes crud necessaires
 
 }

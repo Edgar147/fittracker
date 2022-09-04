@@ -21,63 +21,55 @@ import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.entity.Role;
-import com.fittracker.fittracker.repository.ClientRepository;
+import com.fittracker.fittracker.repository.UserRepository;
+
 @Service
 @Component("cliSer")
 public class UserServiceImpl implements Services<User> {
 
 	@Autowired
-	private UserDAO clientDAO;
-	
-	
+	private UserDAO userDAO;
+
 	@Autowired
 	private RoleDAO roleDAO;
-	
-	private ClientRepository clientRepository;
-	
-	
-	
+
+	private UserRepository userRepository;
+
 	@Autowired
-	private UserDAO clientDao;
+	private UserDAO userDao;
 
 	@Autowired
 	private RoleDAO roleDao;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
-	
-	//VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	public UserServiceImpl(ClientRepository cr) {
-		this.clientRepository = cr;
+
+	// VERY IMPORTANt!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public UserServiceImpl(UserRepository ur) {
+		this.userRepository = ur;
 	}
 
 	@Override
 	public User findById(int theId) {
-		 User theClient= clientRepository.findById(theId).get();
-		 return theClient;
+		User theUser = userRepository.findById(theId).get();
+		return theUser;
 	}
-
 
 	@Override
 	public List<User> findAll() {
-  
-		
-		return clientRepository.findAll();
+
+		return userRepository.findAll();
 	}
 
-	
 	@Override
-	public User findByClientName(String userName) {
-		return clientDao.findByClientName(userName);
+	public User findByUserName(String userName) {
+		return userDao.findByUserName(userName);
 	}
-
-
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = clientDao.findByClientName(userName);
+		User user = userDao.findByUserName(userName);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
@@ -89,32 +81,31 @@ public class UserServiceImpl implements Services<User> {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 
-
 	@Override
 	@Transactional
-	public void save(User theClient) {
-		theClient.setPassword(passwordEncoder.encode(theClient.getPassword()));
-//		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
-		theClient.setRoles(Arrays.asList(roleDAO.findRoleByName(theClient.getRole())));
-		clientDAO.saveClient(theClient);
-		
+	public void save(User theUser) {
+		theUser.setPassword(passwordEncoder.encode(theUser.getPassword()));
+		// theUser.setRoles(Arrays.asList(roleDAO.findRoleByName("ROLE_MANAGER")));
+		theUser.setRoles(Arrays.asList(roleDAO.findRoleByName(theUser.getRole())));
+		userDAO.saveUser(theUser);
+
 	}
 
 	@Override
 	public void deleteById(int t) {
-		clientRepository.deleteById(t);		
+		userRepository.deleteById(t);
 	}
 
 	@Override
 	@Transactional
 	public void setCount2(int i, String name) {
-		clientDAO.setCountOfClient(i, name);		
+		userDAO.setCountOfUser(i, name);
 	}
 
 	@Override
 	public void allActivityTo0(int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -128,7 +119,5 @@ public class UserServiceImpl implements Services<User> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
 
 }

@@ -13,32 +13,21 @@ import com.fittracker.fittracker.entity.Direction;
 @Repository //
 public class ClubDAOImpl implements ClubDAO {
 
-	
-	//define field for entityManager,  EM is for working with entities(search by id, remove...
-		private EntityManager entityManager;
-		
-		
-		//set up constructor injection
-		@Autowired
-		public ClubDAOImpl(EntityManager theEntityManager) {
-			entityManager = theEntityManager;
-		}
-		
+	// define field for entityManager, EM is for working with entities(search by id,
+	// remove...
+	private EntityManager entityManager;
 
-
+	// set up constructor injection
+	@Autowired
+	public ClubDAOImpl(EntityManager theEntityManager) {
+		entityManager = theEntityManager;
+	}
 
 	@Override
 	public void saveClub(Club theClub) {
-//		Session currentSession= sessFact.openSession();
-		//		currentSession.saveOrUpdate(theClient);
 
-		Session  currentSession= entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(theClub); //if id is 0->save, else->update		
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(theClub); // if id is 0->save, else->update
 	}
-
-
-
-
-
 
 }

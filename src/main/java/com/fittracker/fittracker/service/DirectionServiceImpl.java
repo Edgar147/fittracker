@@ -19,7 +19,6 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 	@Autowired
 	private DirectionDAO direcDAO;
-	
 
 	@Override
 	public Direction findById(int theId) {
@@ -27,13 +26,10 @@ public class DirectionServiceImpl implements Services<Direction> {
 		return null;
 	}
 
-
-
 	@Override
 	public List<Direction> findAll() {
 		return direcDAO.findAll();
 	}
-
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) {
@@ -42,7 +38,7 @@ public class DirectionServiceImpl implements Services<Direction> {
 	}
 
 	@Override
-	public User findByClientName(String userName) {
+	public User findByUserName(String userName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -51,34 +47,26 @@ public class DirectionServiceImpl implements Services<Direction> {
 	@Transactional
 	public void save(Direction theDirection) {
 		direcDAO.saveDirection(theDirection);
-		
+
 	}
-
-
 
 	@Override
 	public void deleteById(int t) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public void setCount2(int i, String name) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public void allActivityTo0(int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public int getActiveVisit(int id) {
@@ -86,15 +74,10 @@ public class DirectionServiceImpl implements Services<Direction> {
 		return 0;
 	}
 
-
-
 	@Override
 	public int getActiveVisitClub(int id, int clubId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
 
 }

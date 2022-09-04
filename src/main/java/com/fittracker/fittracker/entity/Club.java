@@ -18,7 +18,7 @@ public class Club {
 
 	@ManyToMany
 	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> clients;
+	private List<User> users;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,11 +88,11 @@ public class Club {
 	}
 
 	public List<User> getUsers() {
-		return clients;
+		return users;
 	}
 
-	public void setClients(List<User> clients) {
-		this.clients.addAll(clients);
+	public void setUsers(List<User> users) {
+		this.users.addAll(users);
 	}
 
 	@Override

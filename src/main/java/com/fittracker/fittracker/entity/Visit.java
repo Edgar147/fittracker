@@ -28,7 +28,7 @@ public class Visit {
 	private Long id;
 
 	@Column(name = "user_id")
-	private int clientId;
+	private int userId;
 
 	@Column(name = "club_id")
 	private int clubId;
@@ -50,17 +50,17 @@ public class Visit {
 	public Visit() {
 	}
 
-	public Visit(int clientId, int clubId, LocalDateTime startDate, int isActiveNow) {
-		this.clientId = clientId;
+	public Visit(int userId, int clubId, LocalDateTime startDate, int isActiveNow) {
+		this.userId = userId;
 		this.clubId = clubId;
 		this.startDate = startDate;
 		this.isActiveNow = isActiveNow;
 
 	}
 
-	public Visit(Long id, int clientId, int clubId, LocalDateTime startDate) {
+	public Visit(Long id, int userId, int clubId, LocalDateTime startDate) {
 		// this.id = id;
-		this.clientId = clientId;
+		this.userId = userId;
 		this.clubId = clubId;
 		this.startDate = startDate;
 	}
@@ -73,12 +73,12 @@ public class Visit {
 		this.id = id;
 	}
 
-	public int getClientId() {
-		return clientId;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getClubId() {
@@ -99,7 +99,7 @@ public class Visit {
 
 	@Override
 	public String toString() {
-		return "Visit [id=" + id + ", clientId=" + clientId + ", clubId=" + clubId + ", startDate=" + startDate
+		return "Visit [id=" + id + ", userId=" + userId + ", clubId=" + clubId + ", startDate=" + startDate
 				+ ", endDate=" + ", duration=" + "]";
 	}
 

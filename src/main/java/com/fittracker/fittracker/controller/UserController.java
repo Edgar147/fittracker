@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
@@ -29,7 +27,7 @@ import com.fittracker.fittracker.service.Services;
 
 @Controller
 // @RequestMapping("/fit")
-public class ClientController {
+public class UserController {
 
 	@Autowired
 	@Qualifier("cliSer")
@@ -49,7 +47,7 @@ public class ClientController {
 
 	@Autowired
 	private UserDAO cd;
-	// private List<Client> theClients;
+	// private List<User> theUsers;
 
 	@GetMapping("/")
 	public String FirstPage() {
@@ -63,10 +61,10 @@ public class ClientController {
 		return "index";
 	}
 
-	@GetMapping("/registration/client")
-	public String reg(@ModelAttribute("client") User theClient) {
+	@GetMapping("/registration/user")
+	public String reg(@ModelAttribute("user") User theUser) {
 
-		return "saveClient";
+		return "saveUser";
 	}
 
 	@GetMapping("/registration/direction")
@@ -82,11 +80,11 @@ public class ClientController {
 	}
 
 	@PostMapping("/save")
-	public String saveClient(@ModelAttribute("client") User theClient,
+	public String saveUser(@ModelAttribute("user") User theUser,
 			@Nullable @RequestParam("newPass") String value) {
 
 		//
-		// theClient.addClub(theClub);
+		// theUser.addClub(theClub);
 		// clubSer.saveClub(theClub);
 
 		// Club te=clubSer.findById(1);
@@ -106,19 +104,19 @@ public class ClientController {
 		// }
 		//
 
-		int clid = theClient.getClubId();
-		Club theClub = clubSer.findById(clid);
+		int user_id = theUser.getClubId();
+		Club theClub = clubSer.findById(user_id);
 		ArrayList c = new ArrayList<>();
 		c.add(theClub);
-		theClient.setClubs(c);
+		theUser.setClubs(c);
 
 		if (value != null) {
-			theClient.setPassword(value);
+			theUser.setPassword(value);
 		}
 
-		cliSer.save(theClient);
+		cliSer.save(theUser);
 
-		return "redirect:/registration/client";
+		return "redirect:/registration/user";
 	}
 
 	@PostMapping("/savedirec")
@@ -137,15 +135,15 @@ public class ClientController {
 		return "redirect:/registration/club";
 	}
 
-	@GetMapping("/list-clients")
+	@GetMapping("/list-users")
 	public String listEmployees(Model theModel) {
 
-		List<User> theClients = cliSer.findAll();
+		List<User> theUsers = cliSer.findAll();
 
 		// add to the spring model
-		theModel.addAttribute("clients", theClients);
+		theModel.addAttribute("users", theUsers);
 
-		return "list-clients";
+		return "list-users";
 	}
 
 	@GetMapping("/list-direction")
@@ -161,29 +159,29 @@ public class ClientController {
 
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
-		// Client x=cliSer.findById(5);
+		// User x=cliSer.findById(5);
 
 		return "login-page";
 
 	}
 
 	@GetMapping("/home")
-	public String showMyHome(Model model, @ModelAttribute("client") User theClient) {
+	public String showMyHome(Model model, @ModelAttribute("user") User theUser) {
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
 
-		User user = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
 		List<Club> clubs = user.getClubs();
 
 		String role = user.getRole();
-		int clientId = user.getId();
+		int userId = user.getId();
 		int clubId = user.getClubId();
 
 		Club club = clubSer.findById(clubId);
 
 		model.addAttribute("role", role);
-		model.addAttribute("clientId", clientId);
+		model.addAttribute("userId", userId);
 		model.addAttribute("theClub", club.getName());
 		model.addAttribute("clubs", clubs);
 		return "home";
@@ -201,35 +199,35 @@ public class ClientController {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
 		Club club = clubSer.findById(value);
 
 		ArrayList<User> L = new ArrayList<>();
-		L.add(client);
-		club.setClients(L);
+		L.add(user);
+		club.setUsers(L);
 		clubSer.save(club);
 
 		return "redirect:/home";
 	}
 
-	@GetMapping("/updateClient")
-	public String UpdateClient(@ModelAttribute("xxx") int theId, Model theModel) {
+	@GetMapping("/updateUser")
+	public String UpdateUser(@ModelAttribute("xxx") int theId, Model theModel) {
 		// get the employee from the service
-		User theClient = cliSer.findById(theId);
-		String thePassword = theClient.getPassword();
+		User theUser = cliSer.findById(theId);
+		String thePassword = theUser.getPassword();
 
 		// set employeee as a model attribute to pre-populate the form
-		theModel.addAttribute("client", theClient);
+		theModel.addAttribute("user", theUser);
 		theModel.addAttribute("password", thePassword);
 
 		// send over to our form
 
-		return "client-update-form";
+		return "user-update-form";
 
 	}
 
-	@GetMapping("/deleteClient")
+	@GetMapping("/deleteUser")
 	public String delete(@RequestParam("yyy") int theId) {
 		cliSer.deleteById(theId);
 
@@ -238,19 +236,19 @@ public class ClientController {
 	}
 
 	@PostMapping("/presence")
-	public String PresenceClient(Model model) {
+	public String PresenceUser(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
-		int count = client.getCount();
+		int count = user.getCount();
 
 		if (count == 1) {
-			cliSer.setCount2(0, client.getFirstName());
+			cliSer.setCount2(0, user.getFirstName());
 
 		} else {
-			cliSer.setCount2(1, client.getFirstName());
+			cliSer.setCount2(1, user.getFirstName());
 
 		}
 
@@ -263,13 +261,13 @@ public class ClientController {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
-		int count = client.getCount();
+		int count = user.getCount();
 		LocalDateTime localDateTime = LocalDateTime.now();
-		visSer.allActivityTo0(client.getId());
+		visSer.allActivityTo0(user.getId());
 
-		Visit theVisit = new Visit(client.getId(), club_id, localDateTime, 1);
+		Visit theVisit = new Visit(user.getId(), club_id, localDateTime, 1);
 
 		visSer.save(theVisit);
 
@@ -282,9 +280,9 @@ public class ClientController {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
-		List<Visit> theVisits = client.getVisits();
+		List<Visit> theVisits = user.getVisits();
 
 		List<Visit> myVisits = new ArrayList<>();
 
@@ -309,134 +307,134 @@ public class ClientController {
 		return "list-visits";
 	}
 
-	@GetMapping("/clientControll")
-	public String ClientControllByManager(Model model) {
+	@GetMapping("/userControll")
+	public String UserControllByManager(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
-		List<Club> clubs = client.getClubs();
+		User user = cd.findByUserName(login);
+		List<Club> clubs = user.getClubs();
 
-		// List<Client> theClients = cliSer.findAll();
-		List<User> myClients = new ArrayList<>();
+		// List<User> theUsers = cliSer.findAll();
+		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
-			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-			// myClients.add(myClients.get(i));
+			// if(clubs.get(i).getId()==theUsers.get(i).getClubId()) {
+			// myUsers.add(myUsers.get(i));
 			// }
-			myClients = clubs.get(i).getUsers();
+			myUsers = clubs.get(i).getUsers();
 
-			myClients.addAll(myClients);
+			myUsers.addAll(myUsers);
 
 		}
 
-		Set<User> set = new HashSet<>(myClients);
+		Set<User> set = new HashSet<>(myUsers);
 
-		model.addAttribute("clients", set);
+		model.addAttribute("users", set);
 
-		return "client-controll";
+		return "user-controll";
 
 	}
 
-	@GetMapping("/clientControll-actives")
-	public String ClientControllofActivsByManager(Model model) {
+	@GetMapping("/userControll-actives")
+	public String UserControllofActivsByManager(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
-		List<Club> clubs = client.getClubs();
+		User user = cd.findByUserName(login);
+		List<Club> clubs = user.getClubs();
 
-		// List<Client> theClients = cliSer.findAll();
-		List<User> myClients = new ArrayList<>();
+		// List<User> theUsers = cliSer.findAll();
+		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
-			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-			// myClients.add(myClients.get(i));
+			// if(clubs.get(i).getId()==theUsers.get(i).getClubId()) {
+			// myUsers.add(myUsers.get(i));
 			// }
 
-			myClients = clubs.get(i).getUsers();
+			myUsers = clubs.get(i).getUsers();
 
-			myClients.addAll(myClients);
+			myUsers.addAll(myUsers);
 
 		}
 
-		List<User> myActiveClients = new ArrayList<>();
+		List<User> myActiveUsers = new ArrayList<>();
 
-		for (int i = 0; i < myClients.size(); i++) {
-			if (visSer.getActiveVisit(myClients.get(i).getId()) == 1) {
-				myActiveClients.add(myClients.get(i));
+		for (int i = 0; i < myUsers.size(); i++) {
+			if (visSer.getActiveVisit(myUsers.get(i).getId()) == 1) {
+				myActiveUsers.add(myUsers.get(i));
 			}
 		}
 
-		Set<User> setActive = new HashSet<>(myActiveClients);
+		Set<User> setActive = new HashSet<>(myActiveUsers);
 
-		model.addAttribute("clients", setActive);
+		model.addAttribute("users", setActive);
 
-		return "client-controll-activs";
+		return "user-controll-activs";
 
 	}
 
-	@GetMapping("/club-client-list")
-	public String ClubClientListForManager(@ModelAttribute("ppp") int club_id, Model theModel) {
+	@GetMapping("/club-user-list")
+	public String ClubUserListForManager(@ModelAttribute("ppp") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
+		User user = cd.findByUserName(login);
 
 		Club club = clubSer.findById(club_id);
-		List<User> clients = club.getUsers();
+		List<User> users = club.getUsers();
 
-		theModel.addAttribute("clients", clients);
+		theModel.addAttribute("users", users);
 		theModel.addAttribute("clubName", club.getName());
 
-		return "club-client-list";
+		return "club-user-list";
 	}
 
-	@GetMapping("/club-client-list-actives")
-	public String ClubClientActiveListForManager(@ModelAttribute("sss") int club_id, Model theModel) {
+	@GetMapping("/club-user-list-actives")
+	public String ClubUserActiveListForManager(@ModelAttribute("sss") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User client = cd.findByClientName(login);
-		List<Club> clubs = client.getClubs();
+		User user = cd.findByUserName(login);
+		List<Club> clubs = user.getClubs();
 
-		// List<Client> theClients = cliSer.findAll();
-		List<User> myClients = new ArrayList<>();
+		// List<User> theUsers = cliSer.findAll();
+		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
-			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-			// myClients.add(myClients.get(i));
+			// if(clubs.get(i).getId()==theUsers.get(i).getClubId()) {
+			// myUsers.add(myUsers.get(i));
 			// }
 
-			myClients = clubs.get(i).getUsers();
+			myUsers = clubs.get(i).getUsers();
 
-			myClients.addAll(myClients);
+			myUsers.addAll(myUsers);
 
 		}
 
-		List<User> myActiveClients = new ArrayList<>();
+		List<User> myActiveUsers = new ArrayList<>();
 
-		for (int i = 0; i < myClients.size(); i++) {
-			if (visSer.getActiveVisitClub(myClients.get(i).getId(), club_id) == 1) {
-				myActiveClients.add(myClients.get(i));
+		for (int i = 0; i < myUsers.size(); i++) {
+			if (visSer.getActiveVisitClub(myUsers.get(i).getId(), club_id) == 1) {
+				myActiveUsers.add(myUsers.get(i));
 			}
 		}
 
-		Set<User> setActive = new HashSet<>(myActiveClients);
+		Set<User> setActive = new HashSet<>(myActiveUsers);
 
-		theModel.addAttribute("clients", setActive);
+		theModel.addAttribute("users", setActive);
 
-		return "club-client-list-actives";
+		return "club-user-list-actives";
 	}
 
-	@GetMapping("/client-profile")
-	public String ClientProfile(@ModelAttribute("param") int user_id, Model theModel) {
+	@GetMapping("/user-profile")
+	public String UserProfile(@ModelAttribute("param") int user_id, Model theModel) {
 
-		User theClient = cliSer.findById(user_id);
+		User theUser = cliSer.findById(user_id);
 
-		theModel.addAttribute("client", theClient);
+		theModel.addAttribute("user", theUser);
 
-		return "client-profile";
+		return "user-profile";
 	}
 
 }

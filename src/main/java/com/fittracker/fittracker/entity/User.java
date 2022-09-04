@@ -179,7 +179,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 
 	public List<Club> getClubs() {

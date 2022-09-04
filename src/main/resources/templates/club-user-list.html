@@ -29,9 +29,10 @@
 
 
 				<thead>
-					<!-- <th>Club name</th>
- -->
-					<th>Start date</th>
+					<th>User name</th>
+					<th>Id</th>
+					<th>Role</th>
+					<th>Presence</th>
 
 
 
@@ -39,10 +40,15 @@
 
 				<tbody>
 
-					<tr th:each="theVisit: ${visits}">
-						<!-- <td th:text="${theVisit.clubId}"/> -->
+					<tr th:each="theUser: ${users}">
+						<!-- 	 <td th:text="${theUser.firstName}"/>
+ -->
+						<td><a th:text="${theUser.firstName}" th:href="@{/user-profile(param=${theUser.id})}" />
+						</td>
 						<!-- <td th:text="${theVisit.userId}"/> -->
-						<td th:text="${theVisit.startDate}" />
+						<td th:text="${theUser.id}" />
+						<td th:text="${theUser.role}" />
+						<td th:text="${theUser.count}" />
 						<!-- 	<td ><a th:href="@{/updateUser(xxx=${tempUsers.id})}" class="btn btn-primary btn-sm ">Update</a></td>
 	<td ><a th:href="@{/deleteUser(yyy=${tempUsers.id})}" class="btn btn-warning btn-sm ">Delete</a></td> -->
 

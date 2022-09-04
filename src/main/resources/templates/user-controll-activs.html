@@ -5,7 +5,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-	<title>Show Visits</title>
+	<title>Show Users</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 	<div class="container py-5 bg-light " style="margin-top:200px;">
 
 		<div class="form-outline mb-3" style="display: inline-block; margin-left: 32%;">
-			<h1>Show club of <span th:text="${clubName}" /></h1>
+			<h1>Show users</h1>
 
 
 
@@ -29,20 +29,22 @@
 
 
 				<thead>
-					<!-- <th>Club name</th>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Email</th>
+					<!-- <th>Action</th>
  -->
-					<th>Start date</th>
-
 
 
 				</thead>
 
 				<tbody>
 
-					<tr th:each="theVisit: ${visits}">
-						<!-- <td th:text="${theVisit.clubId}"/> -->
-						<!-- <td th:text="${theVisit.userId}"/> -->
-						<td th:text="${theVisit.startDate}" />
+					<tr th:each="tempUsers: ${users}">
+						<td><a th:text="${tempUsers.firstName}" th:href="@{/user-profile(param=${tempUsers.id})}" />
+						</td>
+						<td th:text="${tempUsers.lastName}" />
+						<td th:text="${tempUsers.email}" />
 						<!-- 	<td ><a th:href="@{/updateUser(xxx=${tempUsers.id})}" class="btn btn-primary btn-sm ">Update</a></td>
 	<td ><a th:href="@{/deleteUser(yyy=${tempUsers.id})}" class="btn btn-warning btn-sm ">Delete</a></td> -->
 

@@ -22,60 +22,54 @@ import com.fittracker.fittracker.repository.ClubRepository;
 @Component("clubSer")
 public class ClubServiceImpl implements Services<Club> {
 
-	 @Autowired
-	 EntityManager entityManager;
-	
-	
+	@Autowired
+	EntityManager entityManager;
+
 	@Autowired
 	private ClubDAO clubDAO;
-	
+
 	private ClubRepository clubRepository;
-	public ClubServiceImpl( ClubRepository theClubRepository) {
-		clubRepository=theClubRepository;
+
+	public ClubServiceImpl(ClubRepository theClubRepository) {
+		clubRepository = theClubRepository;
 	}
-	
 
 	@Override
 	public Club findById(int theId) {
 		// TODO Auto-generated method stub
 		Optional<Club> result = clubRepository.findById(theId);
-		Club theClub=null;
-		if(result.isPresent()) {
-			theClub=result.get();
-		}
-		else {
-			//we didn't find the employee
-			
-			throw new RuntimeException("Did not find Club id -"+ theId);
+		Club theClub = null;
+		if (result.isPresent()) {
+			theClub = result.get();
+		} else {
+			// we didn't find the employee
+
+			throw new RuntimeException("Did not find Club id -" + theId);
 		}
 		return theClub;
 	}
 
-	
-	
-	
-	
-	//IMPORTANT!!! For custom  requests by hql
+	// IMPORTANT!!! For custom requests by hql
 	/*
-	@Override
-	public String findNameById(int theId) {
-        
-        
-		Query theQuery =entityManager.createQuery("select name from Club  where id =:clubId");
-		theQuery.setParameter("clubId", theId);
-		List<Club> theClub=theQuery.getResultList();
-        
-        
-        
-		return theClub.toString();
-	}
-	*/
+	 * @Override
+	 * public String findNameById(int theId) {
+	 * 
+	 * 
+	 * Query theQuery
+	 * =entityManager.createQuery("select name from Club  where id =:clubId");
+	 * theQuery.setParameter("clubId", theId);
+	 * List<Club> theClub=theQuery.getResultList();
+	 * 
+	 * 
+	 * 
+	 * return theClub.toString();
+	 * }
+	 */
 
 	@Override
 	public List<Club> findAll() {
 		return clubRepository.findAll();
 	}
-
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) {
@@ -84,7 +78,7 @@ public class ClubServiceImpl implements Services<Club> {
 	}
 
 	@Override
-	public User findByClientName(String userName) {
+	public User findByUserName(String userName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -92,31 +86,27 @@ public class ClubServiceImpl implements Services<Club> {
 	@Override
 	@Transactional
 	public void save(Club theClub) {
-		clubRepository.save(theClub); //YOU CAN USE 		clubDAO.saveClub(theClub); as well
-		
-	}
+		clubRepository.save(theClub); // YOU CAN USE clubDAO.saveClub(theClub); as well
 
+	}
 
 	@Override
 	public void deleteById(int t) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void setCount2(int i, String name) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void allActivityTo0(int id) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public int getActiveVisit(int id) {
@@ -124,13 +114,10 @@ public class ClubServiceImpl implements Services<Club> {
 		return 0;
 	}
 
-
 	@Override
 	public int getActiveVisitClub(int id, int clubId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 }

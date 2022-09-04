@@ -1,6 +1,5 @@
 package com.fittracker.fittracker.config;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -26,25 +25,26 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	@Qualifier("cliSer")
 	private Services userService;
-	
+
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication)
 			throws IOException, ServletException {
 
 		System.out.println("\n\nIn customAuthenticationSuccessHandler\n\n");
 
 		String userName = authentication.getName();
-		
+
 		System.out.println("userName=" + userName);
 
-		User theUser = userService.findByClientName(userName);
-		
+		User theUser = userService.findByUserName(userName);
+
 		// now place in the session
 		HttpSession session = request.getSession();
-		session.setAttribute("client", theUser);
-		
+		session.setAttribute("user", theUser);
+
 		// forward to home page
-		
+
 		response.sendRedirect(request.getContextPath() + "/");
 	}
 

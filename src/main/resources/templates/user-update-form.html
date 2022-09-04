@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<title>Show Users</title>
+</head>
+
+<body>
+
+	<!-- theDate comes from the theModel.addAttribure of DemoController -->
+
+
+
+
+	<div class="container py-5 bg-light " style="margin-top:200px;">
+
+		<div class="form-outline mb-3" style="display: inline-block; margin-left: 32%;">
+			<h1>Show users</h1>
+
+
+			<form action="#" th:action="@{/save}" th:object="${user}" method="POST">
+
+
+
+
+
+
+
+				<!-- 
+<tr th:each="tempUsers: ${user}">
+	<td th:text="${tempUsers.id}"/>
+	<td th:text="${tempUsers.firstName}"/>
+	<td th:text="${tempUsers.lastName}"/>
+	<td th:text="${tempUsers.email}"/>
+	<td th:text="${tempUsers.role}"/>
+	<td th:text="${tempUsers.password}"/>
+	<td><a  th:href="@{/updateClub(xxx=${tempUsers.id})}">Update</a><a>Delete</a></td>
+
+ -->
+				<input type="hidden" th:field="*{id}">
+
+				<input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First name">
+				<input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" placeholder="Last name">
+				<input type="text" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email">
+				<input type="text" th:field="*{role}" class="form-control mb-4 col-4" placeholder="Role">
+				<!-- <input type="text" th:field="*{clubs}" class="form-control mb-4 col-4" placeholder="Clubs" >
+ --><input type="text" th:field="*{clubId}" class="form-control mb-4 col-4" placeholder="Club id"><br>
+				New password<input type="text" name="newPass" class="form-control mb-4 col-4" placeholder="New pass">
+
+
+				<button type="submit">Save</button>
+
+				<input type="text" th:value="${myClub}" class="form-control mb-4 col-4" placeholder="Club ids">
+
+
+
+			</form>
+
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+</html>

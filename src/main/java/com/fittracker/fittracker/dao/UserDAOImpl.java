@@ -29,41 +29,41 @@ public class UserDAOImpl implements UserDAO {
 	// private SessionFactory sessFact;
 
 	@Override
-	public void saveClient(User theClient) {
+	public void saveUser(User theUser) {
 
 		// Session currentSession= sessFact.openSession();
-		// currentSession.saveOrUpdate(theClient);
+		// currentSession.saveOrUpdate(theUser);
 
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(theClient); // if id is 0->save, else->update
+		currentSession.saveOrUpdate(theUser); // if id is 0->save, else->update
 
 	}
 
 	@Override
-	public User findByClientName(String clientName) {
+	public User findByUserName(String userName) {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// now retrieve/read from database using username
 		Query<User> theQuery = currentSession.createQuery("from User where firstName=:uName", User.class);
-		theQuery.setParameter("uName", clientName);
-		User theClient = null;
+		theQuery.setParameter("uName", userName);
+		User theUser = null;
 		try {
-			theClient = theQuery.getSingleResult();
+			theUser = theQuery.getSingleResult();
 		} catch (Exception e) {
-			theClient = null;
+			theUser = null;
 		}
 
-		return theClient;
+		return theUser;
 	}
 
 	@Override
-	public void setCountOfClient(int count, String clientName) {
+	public void setCountOfUser(int count, String userName) {
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		// TO WORK THIS, I DELETED Client,class
+		// TO WORK THIS, I DELETED User.class
 		TypedQuery<User> theQuery = currentSession
 				.createQuery(" update User u set u.count =: uCount where firstName=:uName")
-				.setParameter("uName", clientName).setParameter("uCount", count);
+				.setParameter("uName", userName).setParameter("uCount", count);
 		theQuery.executeUpdate();
 	}
 

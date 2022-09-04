@@ -18,7 +18,7 @@ import com.fittracker.fittracker.entity.Visit;
 import com.fittracker.fittracker.repository.VisitRepository;
 
 @Service
-@Component("visSer")
+@Component("visitService")
 public class VisitServiceImpl implements Services<Visit> {
 
 	@Autowired

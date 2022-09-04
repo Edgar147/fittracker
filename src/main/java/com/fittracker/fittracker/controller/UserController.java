@@ -30,20 +30,20 @@ import com.fittracker.fittracker.service.Services;
 public class UserController {
 
 	@Autowired
-	@Qualifier("cliSer")
-	private Services<User> cliSer;
+	@Qualifier("userService")
+	private Services<User> userService;
 
 	@Autowired
-	@Qualifier("dicSer")
-	private Services<Direction> dicSer;
+	@Qualifier("directionService")
+	private Services<Direction> directionService;
 
 	@Autowired
-	@Qualifier("clubSer")
-	private Services<Club> clubSer;
+	@Qualifier("clubService")
+	private Services<Club> clubService;
 
 	@Autowired
-	@Qualifier("visSer")
-	private Services<Visit> visSer;
+	@Qualifier("visitService")
+	private Services<Visit> visitService;
 
 	@Autowired
 	private UserDAO cd;
@@ -72,18 +72,14 @@ public class UserController {
 		return "saveDirection";
 	}
 
-	@GetMapping("/registration/club")
-	public String reg3(@ModelAttribute("club") Club theClub) {
-
-		return "saveClub";
-	}
+	
 
 	@PostMapping("/save")
 	public String saveUser(@ModelAttribute("user") User theUser,
 			@Nullable @RequestParam("newPassword") String value) {
 
 		int user_id = theUser.getClubId();
-		Club theClub = clubSer.findById(user_id);
+		Club theClub = clubService.findById(user_id);
 		ArrayList c = new ArrayList<>();
 		c.add(theClub);
 		theUser.setClubs(c);
@@ -92,7 +88,7 @@ public class UserController {
 			theUser.setPassword(value);
 		}
 
-		cliSer.save(theUser);
+		userService.save(theUser);
 
 		return "redirect:/registration/user";
 	}
@@ -100,23 +96,17 @@ public class UserController {
 	@PostMapping("/savedirec")
 	public String saveDirection(@ModelAttribute("direction") Direction theDirection) {
 
-		dicSer.save(theDirection);
+		directionService.save(theDirection);
 
 		return "redirect:/registration/direction";
 	}
 
-	@PostMapping("/saveclub")
-	public String saveClub(@ModelAttribute("club") Club theClub) {
 
-		clubSer.save(theClub);
-
-		return "redirect:/registration/club";
-	}
 
 	@GetMapping("/list-users")
 	public String listEmployees(Model theModel) {
 
-		List<User> theUsers = cliSer.findAll();
+		List<User> theUsers = userService.findAll();
 
 		// add to the spring model
 		theModel.addAttribute("users", theUsers);
@@ -127,7 +117,7 @@ public class UserController {
 	@GetMapping("/list-direction")
 	public String listDirection(Model theModel) {
 
-		List<Direction> theDirections = dicSer.findAll();
+		List<Direction> theDirections = directionService.findAll();
 
 		// add to the spring model
 		theModel.addAttribute("direction", theDirections);
@@ -137,7 +127,7 @@ public class UserController {
 
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
-		// User x=cliSer.findById(5);
+		// User x=userService.findById(5);
 
 		return "login-page";
 
@@ -156,7 +146,7 @@ public class UserController {
 		int userId = user.getId();
 		int clubId = user.getClubId();
 
-		Club club = clubSer.findById(clubId);
+		Club club = clubService.findById(clubId);
 
 		model.addAttribute("role", role);
 		model.addAttribute("userId", userId);
@@ -166,33 +156,12 @@ public class UserController {
 
 	}
 
-	@GetMapping("/addClub")
-	public String addClub(Model theModel) {
-
-		return "add-club";
-	}
-
-	@PostMapping("/addNewClub")
-	public String addNewClub(@RequestParam("new_club_id") int value) {
-
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
-
-		Club club = clubSer.findById(value);
-
-		ArrayList<User> L = new ArrayList<>();
-		L.add(user);
-		club.setUsers(L);
-		clubSer.save(club);
-
-		return "redirect:/home";
-	}
+	
 
 	@GetMapping("/updateUser")
 	public String UpdateUser(@ModelAttribute("user_id") int theId, Model theModel) {
 		// get the employee from the service
-		User theUser = cliSer.findById(theId);
+		User theUser = userService.findById(theId);
 		String thePassword = theUser.getPassword();
 
 		// set employeee as a model attribute to pre-populate the form
@@ -207,7 +176,7 @@ public class UserController {
 
 	@GetMapping("/deleteUser")
 	public String delete(@RequestParam("user_id_for_delete") int theId) {
-		cliSer.deleteById(theId);
+		userService.deleteById(theId);
 
 		return "home";
 
@@ -223,10 +192,10 @@ public class UserController {
 		int count = user.getCount();
 
 		if (count == 1) {
-			cliSer.setCount2(0, user.getFirstName());
+			userService.setCount2(0, user.getFirstName());
 
 		} else {
-			cliSer.setCount2(1, user.getFirstName());
+			userService.setCount2(1, user.getFirstName());
 
 		}
 
@@ -243,11 +212,11 @@ public class UserController {
 
 		int count = user.getCount();
 		LocalDateTime localDateTime = LocalDateTime.now();
-		visSer.allActivityTo0(user.getId());
+		visitService.allActivityTo0(user.getId());
 
 		Visit theVisit = new Visit(user.getId(), club_id, localDateTime, 1);
 
-		visSer.save(theVisit);
+		visitService.save(theVisit);
 
 		return "redirect:/home";
 
@@ -270,7 +239,7 @@ public class UserController {
 			}
 		}
 
-		Club club = clubSer.findById(club_id);
+		Club club = clubService.findById(club_id);
 		String nameClub = club.getName();
 
 		System.out.println(theVisits);
@@ -289,7 +258,7 @@ public class UserController {
 		User user = cd.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
-		// List<User> theUsers = cliSer.findAll();
+		// List<User> theUsers = userService.findAll();
 		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
@@ -318,7 +287,7 @@ public class UserController {
 		User user = cd.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
-		// List<User> theUsers = cliSer.findAll();
+		// List<User> theUsers = userService.findAll();
 		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
@@ -335,7 +304,7 @@ public class UserController {
 		List<User> myActiveUsers = new ArrayList<>();
 
 		for (int i = 0; i < myUsers.size(); i++) {
-			if (visSer.getActiveVisit(myUsers.get(i).getId()) == 1) {
+			if (visitService.getActiveVisit(myUsers.get(i).getId()) == 1) {
 				myActiveUsers.add(myUsers.get(i));
 			}
 		}
@@ -355,7 +324,7 @@ public class UserController {
 		String login = loggedInUser.getName();
 		User user = cd.findByUserName(login);
 
-		Club club = clubSer.findById(club_id);
+		Club club = clubService.findById(club_id);
 		List<User> users = club.getUsers();
 
 		theModel.addAttribute("users", users);
@@ -372,7 +341,7 @@ public class UserController {
 		User user = cd.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
-		// List<User> theUsers = cliSer.findAll();
+		// List<User> theUsers = userService.findAll();
 		List<User> myUsers = new ArrayList<>();
 
 		for (int i = 0; i < clubs.size(); i++) {
@@ -389,7 +358,7 @@ public class UserController {
 		List<User> myActiveUsers = new ArrayList<>();
 
 		for (int i = 0; i < myUsers.size(); i++) {
-			if (visSer.getActiveVisitClub(myUsers.get(i).getId(), club_id) == 1) {
+			if (visitService.getActiveVisitClub(myUsers.get(i).getId(), club_id) == 1) {
 				myActiveUsers.add(myUsers.get(i));
 			}
 		}
@@ -404,7 +373,7 @@ public class UserController {
 	@GetMapping("/user-profile")
 	public String UserProfile(@ModelAttribute("user_id") int user_id, Model theModel) {
 
-		User theUser = cliSer.findById(user_id);
+		User theUser = userService.findById(user_id);
 
 		theModel.addAttribute("user", theUser);
 

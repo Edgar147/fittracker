@@ -20,69 +20,55 @@ import com.fittracker.fittracker.service.Services;
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// add a reference to our security data source
-	
+
 	// add a reference to our user service
 
-    
-    
 	@Autowired
-	@Qualifier("cliSer")
+	@Qualifier("userService")
 	private Services userService;
-	
-    @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    
-   @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider());
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-			.antMatchers("/registration/**").hasAnyRole("MANAGER", "ADMIN")
-			.antMatchers("/administration/**").hasAnyRole("MANAGER", "ADMIN")
-			.antMatchers("/home").permitAll()
-			.and()
-			.formLogin()
+				.antMatchers("/registration/**").hasAnyRole("MANAGER", "ADMIN")
+				.antMatchers("/administration/**").hasAnyRole("MANAGER", "ADMIN")
+				.antMatchers("/home").permitAll()
+				.and()
+				.formLogin()
 				.loginPage("/myLogin")
 				.loginProcessingUrl("/authenticateTheUser")
 				.defaultSuccessUrl("/home")
 				.permitAll()
-			.and()
-			.logout().permitAll()
-			.and()
-			.exceptionHandling().accessDeniedPage("/access-denied");
-		
+				.and()
+				.logout().permitAll()
+				.and()
+				.exceptionHandling().accessDeniedPage("/access-denied");
+
 	}
-	
-	
-	//beans
-	//bcrypt bean definition
+
+	// beans
+	// bcrypt bean definition
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
-	//authenticationProvider bean definition
+	// authenticationProvider bean definition
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-		auth.setUserDetailsService(userService); //set the custom user details service
-		auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+		auth.setUserDetailsService(userService); // set the custom user details service
+		auth.setPasswordEncoder(passwordEncoder()); // set the password encoder - bcrypt
 		return auth;
 	}
-	
-	
-	
-	
-	
-	
-		
+
 }
-
-
-
-
-
-

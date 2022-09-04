@@ -23,7 +23,7 @@ import com.fittracker.fittracker.service.Services;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
-	@Qualifier("cliSer")
+	@Qualifier("userService")
 	private Services userService;
 
 	@Override

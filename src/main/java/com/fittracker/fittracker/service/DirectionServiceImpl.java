@@ -14,7 +14,7 @@ import com.fittracker.fittracker.entity.Club;
 import com.fittracker.fittracker.entity.Direction;
 
 @Service
-@Component("dicSer")
+@Component("directionService")
 public class DirectionServiceImpl implements Services<Direction> {
 
 	@Autowired

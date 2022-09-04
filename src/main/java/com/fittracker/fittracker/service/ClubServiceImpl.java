@@ -19,7 +19,7 @@ import com.fittracker.fittracker.entity.Direction;
 import com.fittracker.fittracker.repository.ClubRepository;
 
 @Service
-@Component("clubSer")
+@Component("clubService")
 public class ClubServiceImpl implements Services<Club> {
 
 	@Autowired

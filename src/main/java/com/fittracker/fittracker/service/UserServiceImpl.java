@@ -24,7 +24,7 @@ import com.fittracker.fittracker.entity.Role;
 import com.fittracker.fittracker.repository.UserRepository;
 
 @Service
-@Component("cliSer")
+@Component("userService")
 public class UserServiceImpl implements Services<User> {
 
 	@Autowired

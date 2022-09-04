@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Club {
 
 	@ManyToMany
-	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "client_id"))
+	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "club_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> clients;
 
 	@Id

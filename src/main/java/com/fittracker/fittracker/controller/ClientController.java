@@ -28,549 +28,415 @@ import com.fittracker.fittracker.entity.Visit;
 import com.fittracker.fittracker.service.Services;
 
 @Controller
-//@RequestMapping("/fit")
+// @RequestMapping("/fit")
 public class ClientController {
-	
 
-	
 	@Autowired
 	@Qualifier("cliSer")
 	private Services<User> cliSer;
-	
+
 	@Autowired
 	@Qualifier("dicSer")
-	private Services<Direction>  dicSer;
-	
-	
+	private Services<Direction> dicSer;
+
 	@Autowired
 	@Qualifier("clubSer")
 	private Services<Club> clubSer;
-	
+
 	@Autowired
 	@Qualifier("visSer")
 	private Services<Visit> visSer;
-	
+
 	@Autowired
 	private UserDAO cd;
-	//private List<Client> theClients;
+	// private List<Client> theClients;
 
-	
 	@GetMapping("/")
 	public String FirstPage() {
 
 		return "login-page";
 	}
-	
-	
+
 	@GetMapping("/administration")
 	public String AdminPage() {
 
 		return "index";
 	}
-	
-	
+
 	@GetMapping("/registration/client")
 	public String reg(@ModelAttribute("client") User theClient) {
 
 		return "saveClient";
 	}
-	
-	
+
 	@GetMapping("/registration/direction")
 	public String reg2(@ModelAttribute("direction") Direction theDirection) {
-		
+
 		return "saveDirection";
 	}
-	
-	
+
 	@GetMapping("/registration/club")
 	public String reg3(@ModelAttribute("club") Club theClub) {
-		
+
 		return "saveClub";
 	}
-	
-	
-	@PostMapping("/save")
-	public String saveClient(@ModelAttribute("client") User theClient,@Nullable @RequestParam("newPass") String value){
-		
-//		
-//		theClient.addClub(theClub);
-//		clubSer.saveClub(theClub);
 
-		
-//		Club te=clubSer.findById(1);
-//		String te=clubSer.findNameById(2);
-//
-//		if (te!=null)
-//		{
-//			System.out.println(te);
-//			System.out.println("ooooooooooooooooooKKKKKK");
-//			System.out.println("ooooooooooooooooooKKKKKK");
-//		}
-//		else {
-//			System.out.println(te);
-//			System.out.println("fffffffffffff");
-//			System.out.println("fffffffffffff");
-//
-//		}
-//		
-		
-		
-		
-		int clid=theClient.getClubId();
-		Club theClub=clubSer.findById(clid);
+	@PostMapping("/save")
+	public String saveClient(@ModelAttribute("client") User theClient,
+			@Nullable @RequestParam("newPass") String value) {
+
+		//
+		// theClient.addClub(theClub);
+		// clubSer.saveClub(theClub);
+
+		// Club te=clubSer.findById(1);
+		// String te=clubSer.findNameById(2);
+		//
+		// if (te!=null)
+		// {
+		// System.out.println(te);
+		// System.out.println("ooooooooooooooooooKKKKKK");
+		// System.out.println("ooooooooooooooooooKKKKKK");
+		// }
+		// else {
+		// System.out.println(te);
+		// System.out.println("fffffffffffff");
+		// System.out.println("fffffffffffff");
+		//
+		// }
+		//
+
+		int clid = theClient.getClubId();
+		Club theClub = clubSer.findById(clid);
 		ArrayList c = new ArrayList<>();
 		c.add(theClub);
 		theClient.setClubs(c);
 
-		
-		if(value != null) {
+		if (value != null) {
 			theClient.setPassword(value);
 		}
-		
-		
 
-		
-		
 		cliSer.save(theClient);
-		
-		
+
 		return "redirect:/registration/client";
 	}
-	
-	
-	
+
 	@PostMapping("/savedirec")
-	public String saveDirection(@ModelAttribute("direction") Direction theDirection){
-		
+	public String saveDirection(@ModelAttribute("direction") Direction theDirection) {
+
 		dicSer.save(theDirection);
-		
+
 		return "redirect:/registration/direction";
 	}
-	
+
 	@PostMapping("/saveclub")
-	public String saveClub(@ModelAttribute("club") Club theClub){
-		
+	public String saveClub(@ModelAttribute("club") Club theClub) {
+
 		clubSer.save(theClub);
-		
+
 		return "redirect:/registration/club";
 	}
 
-	
 	@GetMapping("/list-clients")
 	public String listEmployees(Model theModel) {
-		
-		
-		List<User> theClients=cliSer.findAll();
 
-		
-		
-		
-		//add to the spring model
-		theModel.addAttribute("clients",theClients);
-		
+		List<User> theClients = cliSer.findAll();
+
+		// add to the spring model
+		theModel.addAttribute("clients", theClients);
+
 		return "list-clients";
 	}
-	
-	
+
 	@GetMapping("/list-direction")
 	public String listDirection(Model theModel) {
-		
-		
-		List<Direction> theDirections=dicSer.findAll();
-		
-		
-		
-		
-		//add to the spring model
-		theModel.addAttribute("direction",theDirections);
-		
+
+		List<Direction> theDirections = dicSer.findAll();
+
+		// add to the spring model
+		theModel.addAttribute("direction", theDirections);
+
 		return "list-direction";
 	}
-	
-	
+
 	@GetMapping("/myLogin")
 	public String showMyLoginPage() {
-		//Client x=cliSer.findById(5);
-	
+		// Client x=cliSer.findById(5);
+
 		return "login-page";
-		
+
 	}
-	
-	
+
 	@GetMapping("/home")
-	public String showMyHome(Model model,@ModelAttribute("client") User theClient) {
-	    Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    
+	public String showMyHome(Model model, @ModelAttribute("client") User theClient) {
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
 
-	     User user = cd.findByClientName(login);
+		User user = cd.findByClientName(login);
 
-			List<Club> clubs=user.getClubs();
+		List<Club> clubs = user.getClubs();
 
-	    
-		String role=user.getRole();
-		int clientId=user.getId(); 
-		int clubId= user.getClubId();
-		
-		Club club= clubSer.findById(clubId);
+		String role = user.getRole();
+		int clientId = user.getId();
+		int clubId = user.getClubId();
 
-	    model.addAttribute("role", role);
-	    model.addAttribute("clientId", clientId);
-	    model.addAttribute("theClub", club.getName());
-	    model.addAttribute("clubs", clubs);
+		Club club = clubSer.findById(clubId);
+
+		model.addAttribute("role", role);
+		model.addAttribute("clientId", clientId);
+		model.addAttribute("theClub", club.getName());
+		model.addAttribute("clubs", clubs);
 		return "home";
-		
+
 	}
-	
-	
+
 	@GetMapping("/addClub")
 	public String addClub(Model theModel) {
-		
+
 		return "add-club";
 	}
-	
+
 	@PostMapping("/addNewClub")
-	public String addNewClub(@RequestParam("x") int value){
-		
+	public String addNewClub(@RequestParam("x") int value) {
+
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
 
+		Club club = clubSer.findById(value);
 
-
-	    
-	    
-	    
-	    
-		Club club=clubSer.findById(value);
-
-
-		
-ArrayList<User> L= new ArrayList<>();
-	L.add(client);
+		ArrayList<User> L = new ArrayList<>();
+		L.add(client);
 		club.setClients(L);
 		clubSer.save(club);
 
-		
 		return "redirect:/home";
 	}
-	
-	
+
 	@GetMapping("/updateClient")
-	public String UpdateClient(@ModelAttribute("xxx") int theId, Model theModel)
-	{
-		//get the employee from the service
+	public String UpdateClient(@ModelAttribute("xxx") int theId, Model theModel) {
+		// get the employee from the service
 		User theClient = cliSer.findById(theId);
-		String thePassword=theClient.getPassword();
-		
-		//set employeee as a model attribute to pre-populate the form
+		String thePassword = theClient.getPassword();
+
+		// set employeee as a model attribute to pre-populate the form
 		theModel.addAttribute("client", theClient);
 		theModel.addAttribute("password", thePassword);
-		
-		//send over to our form
-		
+
+		// send over to our form
+
 		return "client-update-form";
-		
+
 	}
-	
-	
+
 	@GetMapping("/deleteClient")
 	public String delete(@RequestParam("yyy") int theId) {
 		cliSer.deleteById(theId);
-		
+
 		return "home";
-		
-		
+
 	}
-	
-	
+
 	@PostMapping("/presence")
 	public String PresenceClient(Model model) {
-		
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    
-	    int count=client.getCount();
-	    
-	    
-	    if(count==1) {
-	    	cliSer.setCount2(0,client.getFirstName());
-			
 
-	    }
-	    else {
-	    	cliSer.setCount2(1,client.getFirstName());
-	    	
-	    }
-	    
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+
+		int count = client.getCount();
+
+		if (count == 1) {
+			cliSer.setCount2(0, client.getFirstName());
+
+		} else {
+			cliSer.setCount2(1, client.getFirstName());
+
+		}
+
 		return "redirect:/home";
-		
-		
+
 	}
-	
-	
-	
-	
+
 	@PostMapping("/saveVisit")
-	public String SaveVisit(@RequestParam("club_id") int club_id,Model model) {
-		
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    
-	    
-	    
-	    int count=client.getCount();
-	    LocalDateTime localDateTime = LocalDateTime.now();
-	    visSer.allActivityTo0(client.getId());
+	public String SaveVisit(@RequestParam("club_id") int club_id, Model model) {
 
-	    Visit theVisit= new Visit(client.getId(),club_id,localDateTime,1);
-	    
-	    
-	    
-	    visSer.save(theVisit);
-	    
-	 
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+
+		int count = client.getCount();
+		LocalDateTime localDateTime = LocalDateTime.now();
+		visSer.allActivityTo0(client.getId());
+
+		Visit theVisit = new Visit(client.getId(), club_id, localDateTime, 1);
+
+		visSer.save(theVisit);
+
 		return "redirect:/home";
-		
-		
+
 	}
-	
+
 	@GetMapping("/list-visits")
 	public String listVisits(@ModelAttribute("ggg") int club_id, Model theModel) {
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    
-		List<Visit> theVisits=client.getVisits();
-		
-		 List<Visit> myVisits = new ArrayList<>();
 
-		for(int i=0;i<theVisits.size();i++) {
-			if(theVisits.get(i).getClubId()==club_id) {
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+
+		List<Visit> theVisits = client.getVisits();
+
+		List<Visit> myVisits = new ArrayList<>();
+
+		for (int i = 0; i < theVisits.size(); i++) {
+			if (theVisits.get(i).getClubId() == club_id) {
 				myVisits.add(theVisits.get(i));
 			}
 		}
-		
-		Club club= clubSer.findById(club_id);
-		String nameClub=club.getName();
-		
-		
-		
-		
+
+		Club club = clubSer.findById(club_id);
+		String nameClub = club.getName();
+
 		System.out.println("eeeee");
 		System.out.println("eeeee");
 		System.out.println("eeeee");
 		System.out.println("eeeee");
 		System.out.println(theVisits);
-		//add to the spring model
-		theModel.addAttribute("visits",myVisits);
-		theModel.addAttribute("clubName",nameClub);
-		
+		// add to the spring model
+		theModel.addAttribute("visits", myVisits);
+		theModel.addAttribute("clubName", nameClub);
+
 		return "list-visits";
 	}
-	
-	
-	
-	
-	
+
 	@GetMapping("/clientControll")
 	public String ClientControllByManager(Model model) {
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    List<Club> clubs=client.getClubs();
-		
-		 //List<Client> theClients = cliSer.findAll();
-		 List<User> myClients = new ArrayList<>();
 
-	    
-		for(int i=0;i<clubs.size();i++) {
-//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-//				myClients.add(myClients.get(i));
-//			}
-			myClients=clubs.get(i).getUsers();
-			
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+		List<Club> clubs = client.getClubs();
+
+		// List<Client> theClients = cliSer.findAll();
+		List<User> myClients = new ArrayList<>();
+
+		for (int i = 0; i < clubs.size(); i++) {
+			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+			// myClients.add(myClients.get(i));
+			// }
+			myClients = clubs.get(i).getUsers();
+
 			myClients.addAll(myClients);
-			
-			
+
 		}
-	    	
+
 		Set<User> set = new HashSet<>(myClients);
 
-	    	
-		
-		model.addAttribute("clients",set);
+		model.addAttribute("clients", set);
 
 		return "client-controll";
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
 	@GetMapping("/clientControll-actives")
 	public String ClientControllofActivsByManager(Model model) {
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    List<Club> clubs=client.getClubs();
-		
-		 //List<Client> theClients = cliSer.findAll();
-		 List<User> myClients = new ArrayList<>();
 
-	    
-		for(int i=0;i<clubs.size();i++) {
-//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-//				myClients.add(myClients.get(i));
-//			}
-			
-		
-			
-			
-			myClients=clubs.get(i).getUsers();
-			
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+		List<Club> clubs = client.getClubs();
+
+		// List<Client> theClients = cliSer.findAll();
+		List<User> myClients = new ArrayList<>();
+
+		for (int i = 0; i < clubs.size(); i++) {
+			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+			// myClients.add(myClients.get(i));
+			// }
+
+			myClients = clubs.get(i).getUsers();
+
 			myClients.addAll(myClients);
-			
-			
+
 		}
-		
-		 List<User> myActiveClients = new ArrayList<>();
-		
-		 for(int i=0;i<myClients.size();i++) {
-			if( visSer.getActiveVisit(myClients.get(i).getId())==1) {
+
+		List<User> myActiveClients = new ArrayList<>();
+
+		for (int i = 0; i < myClients.size(); i++) {
+			if (visSer.getActiveVisit(myClients.get(i).getId()) == 1) {
 				myActiveClients.add(myClients.get(i));
 			}
-		    }
-		
-		
-		
-	    	
+		}
+
 		Set<User> setActive = new HashSet<>(myActiveClients);
 
-	   
-		
-		model.addAttribute("clients",setActive);
+		model.addAttribute("clients", setActive);
 
 		return "client-controll-activs";
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@GetMapping("/club-client-list")
 	public String ClubClientListForManager(@ModelAttribute("ppp") int club_id, Model theModel) {
-		
+
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    
-	    
-	    
-	    
-	    Club club=clubSer.findById(club_id);
-	    List<User> clients=club.getUsers();
-	    
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
 
-		
-		
-		
+		Club club = clubSer.findById(club_id);
+		List<User> clients = club.getUsers();
 
-		theModel.addAttribute("clients",clients);
-		theModel.addAttribute("clubName",club.getName());
+		theModel.addAttribute("clients", clients);
+		theModel.addAttribute("clubName", club.getName());
 
-		
 		return "club-client-list";
 	}
-	
-	
-	
-	
+
 	@GetMapping("/club-client-list-actives")
 	public String ClubClientActiveListForManager(@ModelAttribute("sss") int club_id, Model theModel) {
-		
-		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	    String login = loggedInUser.getName(); 
-	    User client = cd.findByClientName(login);
-	    List<Club> clubs=client.getClubs();
-		
-		 //List<Client> theClients = cliSer.findAll();
-		 List<User> myClients = new ArrayList<>();
 
-	    
-		for(int i=0;i<clubs.size();i++) {
-//			if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
-//				myClients.add(myClients.get(i));
-//			}
-			
-		
-			
-			
-			myClients=clubs.get(i).getUsers();
-			
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User client = cd.findByClientName(login);
+		List<Club> clubs = client.getClubs();
+
+		// List<Client> theClients = cliSer.findAll();
+		List<User> myClients = new ArrayList<>();
+
+		for (int i = 0; i < clubs.size(); i++) {
+			// if(clubs.get(i).getId()==theClients.get(i).getClubId()) {
+			// myClients.add(myClients.get(i));
+			// }
+
+			myClients = clubs.get(i).getUsers();
+
 			myClients.addAll(myClients);
-			
-			
+
 		}
-		
-		 List<User> myActiveClients = new ArrayList<>();
-		
-		 for(int i=0;i<myClients.size();i++) {
-			if( visSer.getActiveVisitClub(myClients.get(i).getId(),club_id)==1) {
+
+		List<User> myActiveClients = new ArrayList<>();
+
+		for (int i = 0; i < myClients.size(); i++) {
+			if (visSer.getActiveVisitClub(myClients.get(i).getId(), club_id) == 1) {
 				myActiveClients.add(myClients.get(i));
 			}
-		    }
-		
-		
-		
-	    	
+		}
+
 		Set<User> setActive = new HashSet<>(myActiveClients);
 
-	   
-		
-		theModel.addAttribute("clients",setActive);
+		theModel.addAttribute("clients", setActive);
 
-
-		
 		return "club-client-list-actives";
 	}
-	
-	
-	
-	
-	
+
 	@GetMapping("/client-profile")
-	public String ClientProfile(@ModelAttribute("param") int client_id, Model theModel) {
-		
-		User theClient= cliSer.findById(client_id);
-		
-		theModel.addAttribute("client",theClient);
+	public String ClientProfile(@ModelAttribute("param") int user_id, Model theModel) {
 
+		User theClient = cliSer.findById(user_id);
 
-		
+		theModel.addAttribute("client", theClient);
+
 		return "client-profile";
 	}
-	
-	
-	
+
 }

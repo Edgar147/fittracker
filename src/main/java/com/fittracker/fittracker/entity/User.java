@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,16 +20,16 @@ import javax.persistence.Table;
 public class User {
 
 	@ManyToMany
-	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "club_id"))
+	@JoinTable(name = "club_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "club_id"))
 	private List<Club> clubs;
 
 	// THE SAME BUT FOR VISITS
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Collection<Role> roles;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "visit", joinColumns = @JoinColumn(name = "client_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+	@JoinTable(name = "visit", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<Visit> visits;
 
 	public List<Visit> getVisits() {

@@ -19,59 +19,47 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="visit")
+@Table(name = "visit")
 public class Visit {
-		
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name="client_id")
+	@Column(name = "user_id")
 	private int clientId;
-	
-	@Column(name="club_id")
+
+	@Column(name = "club_id")
 	private int clubId;
-	
-	@Column(name="start_date")
+
+	@Column(name = "start_date")
 	private LocalDateTime startDate;
 
-
-	
 	@Column(name = "is_active_now")
 	private int isActiveNow;
-	
-	
+
 	public int getIsActiveNow() {
 		return isActiveNow;
 	}
-
-
 
 	public void setIsActiveNow(int isActiveNow) {
 		this.isActiveNow = isActiveNow;
 	}
 
-
-
 	public Visit() {
 	}
 
-
-
-	public Visit(int clientId, int clubId, LocalDateTime startDate,int isActiveNow ) {
+	public Visit(int clientId, int clubId, LocalDateTime startDate, int isActiveNow) {
 		this.clientId = clientId;
 		this.clubId = clubId;
 		this.startDate = startDate;
-		this.isActiveNow= isActiveNow;
+		this.isActiveNow = isActiveNow;
 
 	}
-	
-	
-	
+
 	public Visit(Long id, int clientId, int clubId, LocalDateTime startDate) {
-//		this.id = id;
+		// this.id = id;
 		this.clientId = clientId;
 		this.clubId = clubId;
 		this.startDate = startDate;
@@ -109,27 +97,10 @@ public class Visit {
 		this.startDate = startDate;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
 		return "Visit [id=" + id + ", clientId=" + clientId + ", clubId=" + clubId + ", startDate=" + startDate
-				+ ", endDate=" + ", duration=" +"]";
+				+ ", endDate=" + ", duration=" + "]";
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
 
 }

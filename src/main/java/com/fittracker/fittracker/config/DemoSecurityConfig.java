@@ -44,7 +44,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/home").permitAll()
 				.and()
 				.formLogin()
-				.loginPage("/myLogin")
+				.loginPage("/")
 				.loginProcessingUrl("/authenticateTheUser")
 				.defaultSuccessUrl("/home")
 				.permitAll()

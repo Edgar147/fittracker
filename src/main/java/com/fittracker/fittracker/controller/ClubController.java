@@ -29,8 +29,7 @@ public class ClubController {
 
 	@Autowired
 	private UserDAO cd;
-	
-	
+
 	@GetMapping("/clubtest")
 	public String ClubTestPage(Model model) {
 		Club club = clubService.findById(1);
@@ -38,26 +37,21 @@ public class ClubController {
 
 		return "clubTest";
 	}
-	
-	
+
 	@GetMapping("/registration/club")
 	public String reg3(@ModelAttribute("club") Club theClub) {
 
 		return "saveClub";
 	}
-	
-	
-	@PostMapping("/saveclub")
+
+	@PostMapping("/saveClub")
 	public String saveClub(@ModelAttribute("club") Club theClub) {
 
 		clubService.save(theClub);
 
 		return "redirect:/registration/club";
 	}
-	
-	
-	
-	
+
 	@GetMapping("/addClub")
 	public String addClub(Model theModel) {
 

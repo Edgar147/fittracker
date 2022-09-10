@@ -46,10 +46,10 @@ public class UserController {
 	private Services<Visit> visitService;
 
 	@Autowired
-	private UserDAO cd;
+	private UserDAO ud;
 
 	@GetMapping("/")
-	public String FirstPage() {
+	public String LoginPage() {
 
 		return "login-page";
 	}
@@ -61,20 +61,18 @@ public class UserController {
 	}
 
 	@GetMapping("/registration/user")
-	public String reg(@ModelAttribute("user") User theUser) {
+	public String UserRegistration(@ModelAttribute("user") User theUser) {
 
 		return "saveUser";
 	}
 
 	@GetMapping("/registration/direction")
-	public String reg2(@ModelAttribute("direction") Direction theDirection) {
+	public String CompanyRegistration(@ModelAttribute("direction") Direction theDirection) {
 
 		return "saveDirection";
 	}
 
-	
-
-	@PostMapping("/save")
+	@PostMapping("/saveUser")
 	public String saveUser(@ModelAttribute("user") User theUser,
 			@Nullable @RequestParam("newPassword") String value) {
 
@@ -94,17 +92,15 @@ public class UserController {
 	}
 
 	@PostMapping("/savedirec")
-	public String saveDirection(@ModelAttribute("direction") Direction theDirection) {
+	public String saveCompany(@ModelAttribute("direction") Direction theDirection) {
 
 		directionService.save(theDirection);
 
 		return "redirect:/registration/direction";
 	}
 
-
-
 	@GetMapping("/list-users")
-	public String listEmployees(Model theModel) {
+	public String returnListOfEmployees(Model theModel) {
 
 		List<User> theUsers = userService.findAll();
 
@@ -115,7 +111,7 @@ public class UserController {
 	}
 
 	@GetMapping("/list-direction")
-	public String listDirection(Model theModel) {
+	public String returnListCompany(Model theModel) {
 
 		List<Direction> theDirections = directionService.findAll();
 
@@ -125,20 +121,12 @@ public class UserController {
 		return "list-direction";
 	}
 
-	@GetMapping("/myLogin")
-	public String showMyLoginPage() {
-		// User x=userService.findById(5);
-
-		return "login-page";
-
-	}
-
 	@GetMapping("/home")
-	public String showMyHome(Model model, @ModelAttribute("user") User theUser) {
+	public String showHomepage(Model model, @ModelAttribute("user") User theUser) {
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
 
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 
 		List<Club> clubs = user.getClubs();
 
@@ -155,8 +143,6 @@ public class UserController {
 		return "home";
 
 	}
-
-	
 
 	@GetMapping("/updateUser")
 	public String UpdateUser(@ModelAttribute("user_id") int theId, Model theModel) {
@@ -175,19 +161,20 @@ public class UserController {
 	}
 
 	@GetMapping("/deleteUser")
-	public String delete(@RequestParam("user_id_for_delete") int theId) {
+	public String deleteUser(@RequestParam("user_id_for_delete") int theId) {
 		userService.deleteById(theId);
 
 		return "home";
 
 	}
 
+	// Just TRY ME button trigger
 	@PostMapping("/presence")
 	public String PresenceUser(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 
 		int count = user.getCount();
 
@@ -208,7 +195,7 @@ public class UserController {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 
 		int count = user.getCount();
 		LocalDateTime localDateTime = LocalDateTime.now();
@@ -222,12 +209,13 @@ public class UserController {
 
 	}
 
+	// |Show history| -> button trigger
 	@GetMapping("/list-visits")
 	public String listVisits(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 
 		List<Visit> theVisits = user.getVisits();
 
@@ -250,12 +238,13 @@ public class UserController {
 		return "list-visits";
 	}
 
+	// Manager controll page -> Get all users which are connected with manager clubs
 	@GetMapping("/userControll")
 	public String UserControllByManager(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
 		// List<User> theUsers = userService.findAll();
@@ -279,12 +268,13 @@ public class UserController {
 
 	}
 
+	// Manager controll active page -> all active users that belongs to manager
 	@GetMapping("/userControll-actives")
-	public String UserControllofActivsByManager(Model model) {
+	public String AllUserControllofActivsByManager(Model model) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
 		// List<User> theUsers = userService.findAll();
@@ -317,12 +307,13 @@ public class UserController {
 
 	}
 
+	// Show users of club -> Show to manager the list of users of given club
 	@GetMapping("/club-user-list")
 	public String ClubUserListForManager(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 
 		Club club = clubService.findById(club_id);
 		List<User> users = club.getUsers();
@@ -333,12 +324,13 @@ public class UserController {
 		return "club-user-list";
 	}
 
+	// Show active users of club -> show active users whp are in given club
 	@GetMapping("/club-user-list-actives")
 	public String ClubUserActiveListForManager(@ModelAttribute("club_id") int club_id, Model theModel) {
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String login = loggedInUser.getName();
-		User user = cd.findByUserName(login);
+		User user = ud.findByUserName(login);
 		List<Club> clubs = user.getClubs();
 
 		// List<User> theUsers = userService.findAll();

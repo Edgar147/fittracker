@@ -1,6 +1,7 @@
 package com.fittracker.fittracker.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,9 @@ public class ClubController {
 	@Autowired
 	private UserDAO cd;
 
+	@Autowired
+	private UserDAO ud;
+	
 	@GetMapping("/clubtest")
 	public String ClubTestPage(Model model) {
 		Club club = clubService.findById(1);
@@ -74,5 +78,27 @@ public class ClubController {
 
 		return "redirect:/home";
 	}
+	
+	
+	
+	@GetMapping("/club-company-list")
+	public String ClubsOfCompany(Model theModel) {
+
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String login = loggedInUser.getName();
+		User user = ud.findByUserName(login);
+
+		List<Club> clubs = user.getClubs();
+
+		theModel.addAttribute("clubs", clubs);
+
+		return "club-company-list";
+	}
+	
+	
+	
+	
+	
+	
 
 }

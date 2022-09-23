@@ -5,7 +5,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-	<title>Show Companies</title>
+	<title>Show Visits</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 	<div class="container py-5 bg-light " style="margin-top:200px;">
 
 		<div class="form-outline mb-3" style="display: inline-block; margin-left: 32%;">
-			<h1>Show Company</h1>
+			<h1>Show clubs</h1>
 
 
 
@@ -29,9 +29,8 @@
 
 
 				<thead>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Email</th>
+					<th>Club name</th>
+			
 
 
 
@@ -39,10 +38,12 @@
 
 				<tbody>
 
-					<tr th:each="tempCompany: ${company}">
-						<td th:text="${tempCompany.firstName}" />
-						<td th:text="${tempCompany.lastName}" />
-						<td th:text="${tempCompany.email}" />
+					<tr th:each="theClub: ${clubs}">
+					
+						<td th:text="${theClub.name}" />
+						<!-- 	<td ><a th:href="@{/updateUser(xxx=${tempUsers.id})}" class="btn btn-primary btn-sm ">Update</a></td>
+	<td ><a th:href="@{/deleteUser(yyy=${tempUsers.id})}" class="btn btn-warning btn-sm ">Delete</a></td> -->
+
 					</tr>
 
 				</tbody>

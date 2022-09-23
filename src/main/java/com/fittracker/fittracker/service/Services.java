@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.fittracker.fittracker.entity.User;
 
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 
 @Component("Services")
 

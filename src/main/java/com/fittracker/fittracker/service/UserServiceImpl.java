@@ -19,7 +19,7 @@ import com.fittracker.fittracker.dao.UserDAO;
 import com.fittracker.fittracker.dao.RoleDAO;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 import com.fittracker.fittracker.entity.Role;
 import com.fittracker.fittracker.repository.UserRepository;
 

@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fittracker.fittracker.dao.UserDAO;
-import com.fittracker.fittracker.dao.DirectionDAO;
+import com.fittracker.fittracker.dao.CompanyDAO;
 import com.fittracker.fittracker.dao.VisitDAO;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 import com.fittracker.fittracker.entity.Visit;
 import com.fittracker.fittracker.repository.VisitRepository;
 

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fittracker.fittracker.dao.ClubDAO;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 import com.fittracker.fittracker.repository.ClubRepository;
 
 @Service

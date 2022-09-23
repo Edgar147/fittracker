@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 
 @Repository //
 public class ClubDAOImpl implements ClubDAO {

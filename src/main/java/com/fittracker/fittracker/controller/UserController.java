@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fittracker.fittracker.dao.UserDAO;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 import com.fittracker.fittracker.entity.Visit;
 import com.fittracker.fittracker.service.Services;
 
@@ -34,8 +34,8 @@ public class UserController {
 	private Services<User> userService;
 
 	@Autowired
-	@Qualifier("directionService")
-	private Services<Direction> directionService;
+	@Qualifier("companyService")
+	private Services<Company> companyService;
 
 	@Autowired
 	@Qualifier("clubService")
@@ -66,10 +66,10 @@ public class UserController {
 		return "saveUser";
 	}
 
-	@GetMapping("/registration/direction")
-	public String CompanyRegistration(@ModelAttribute("direction") Direction theDirection) {
+	@GetMapping("/registration/company")
+	public String CompanyRegistration(@ModelAttribute("company") Company theCompany) {
 
-		return "saveDirection";
+		return "saveCompany";
 	}
 
 	@PostMapping("/saveUser")
@@ -92,11 +92,11 @@ public class UserController {
 	}
 
 	@PostMapping("/savedirec")
-	public String saveCompany(@ModelAttribute("direction") Direction theDirection) {
+	public String saveCompany(@ModelAttribute("company") Company theCompany) {
 
-		directionService.save(theDirection);
+		companyService.save(theCompany);
 
-		return "redirect:/registration/direction";
+		return "redirect:/registration/company";
 	}
 
 	@GetMapping("/list-users")
@@ -110,15 +110,15 @@ public class UserController {
 		return "list-users";
 	}
 
-	@GetMapping("/list-direction")
+	@GetMapping("/list-company")
 	public String returnListCompany(Model theModel) {
 
-		List<Direction> theDirections = directionService.findAll();
+		List<Company> theCompanys = companyService.findAll();
 
 		// add to the spring model
-		theModel.addAttribute("direction", theDirections);
+		theModel.addAttribute("company", theCompanys);
 
-		return "list-direction";
+		return "list-company";
 	}
 
 	@GetMapping("/home")

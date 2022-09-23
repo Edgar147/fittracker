@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fittracker.fittracker.entity.User;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 
 @Repository //
-public class DirectionDAOImpl implements DirectionDAO {
+public class CompanyDAOImpl implements CompanyDAO {
 
 	// define field for entityManager, EM is for working with entities(search by id,
 	// remove...
@@ -21,7 +21,7 @@ public class DirectionDAOImpl implements DirectionDAO {
 
 	// set up constructor injection
 	@Autowired
-	public DirectionDAOImpl(EntityManager theEntityManager) {
+	public CompanyDAOImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
 
@@ -31,21 +31,21 @@ public class DirectionDAOImpl implements DirectionDAO {
 	// private SessionFactory sessFact;
 
 	@Override
-	public void saveDirection(Direction theDirection) {
+	public void saveCompany(Company theCompany) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(theDirection); // if id is 0->save, else->update
+		currentSession.saveOrUpdate(theCompany); // if id is 0->save, else->update
 
 	}
 
 	@Override
-	public List<Direction> findAll() {
+	public List<Company> findAll() {
 		Session currentSession = entityManager.unwrap(Session.class);
-		List<Direction> theDirection;
+		List<Company> theCompany;
 		// now retrieve/read from database using username
-		Query<Direction> theQuery = currentSession.createQuery("from Direction", Direction.class);
+		Query<Company> theQuery = currentSession.createQuery("from Company", Company.class);
 
-		List<Direction> directors = theQuery.getResultList();
+		List<Company> directors = theQuery.getResultList();
 
 		return directors;
 

@@ -8,26 +8,26 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fittracker.fittracker.dao.DirectionDAO;
+import com.fittracker.fittracker.dao.CompanyDAO;
 import com.fittracker.fittracker.entity.User;
 import com.fittracker.fittracker.entity.Club;
-import com.fittracker.fittracker.entity.Direction;
+import com.fittracker.fittracker.entity.Company;
 
 @Service
-@Component("directionService")
-public class DirectionServiceImpl implements Services<Direction> {
+@Component("companyService")
+public class CompanyServiceImpl implements Services<Company> {
 
 	@Autowired
-	private DirectionDAO direcDAO;
+	private CompanyDAO direcDAO;
 
 	@Override
-	public Direction findById(int theId) {
+	public Company findById(int theId) {
 
 		return null;
 	}
 
 	@Override
-	public List<Direction> findAll() {
+	public List<Company> findAll() {
 		return direcDAO.findAll();
 	}
 
@@ -45,8 +45,8 @@ public class DirectionServiceImpl implements Services<Direction> {
 
 	@Override
 	@Transactional
-	public void save(Direction theDirection) {
-		direcDAO.saveDirection(theDirection);
+	public void save(Company theCompany) {
+		direcDAO.saveCompany(theCompany);
 
 	}
 
